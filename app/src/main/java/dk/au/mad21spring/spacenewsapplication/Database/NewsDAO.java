@@ -8,30 +8,17 @@ import androidx.room.Update;
 
 import java.util.List;
 
+import dk.au.mad21spring.spacenewsapplication.Article;
+
 @Dao
 public interface NewsDAO {
 
-    @Query("SELECT * FROM cityDTO")
-    LiveData<List<CityDTO>> getAllCities();
-
-    @Query("SELECT * FROM cityDTO")
-    List<CityDTO> getAllCitiesNonAsynch();
-
-    @Query("SELECT * FROM cityDTO WHERE uid LIKE :uid")
-    CityDTO findCity(int uid);
-
-    @Query("SELECT * FROM cityDTO WHERE cityName LIKE :name")
-    CityDTO findCity(String name);
+//    @Query("SELECT * FROM newsDTO")
+//    LiveData<List<NewsDTO>> getReadLaterList();
 
     @Insert
-    void addCity(CityDTO city);
-
-    @Update
-    void updateCity(CityDTO city);
+    void addArticle(Article article);
 
     @Query("DELETE FROM cityDTO WHERE uid LIKE :uid")
-    void deleteCity(int uid);
-
-    @Query("DELETE FROM CityDTO")
-    void deleteAll();
+    void deleteArticle(int uid);
 }

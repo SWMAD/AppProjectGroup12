@@ -9,15 +9,17 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import dk.au.mad21spring.assignment2.au611785.Database.CityDTO;
-import dk.au.mad21spring.assignment2.au611785.Database.Repository;
-import dk.au.mad21spring.assignment2.au611785.R;
-
 public class ForegroundService extends Service {
 
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
 }

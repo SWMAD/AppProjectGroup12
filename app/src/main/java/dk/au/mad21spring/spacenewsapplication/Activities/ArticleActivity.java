@@ -11,6 +11,8 @@ public class ArticleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_article2);
+        setContentView(R.layout.activity_article);
+
+        // Ved ikke om vi har brug for denne activity når vi bruger fragments...
     }
 }
