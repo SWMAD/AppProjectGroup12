@@ -63,7 +63,7 @@ public class Repository {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                db.newsDAO().deleteArticle(article.id);
+                db.newsDAO().deleteArticle(article.ArticleID);
             }
         });
     }

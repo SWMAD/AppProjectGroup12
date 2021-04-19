@@ -13,12 +13,9 @@ import dk.au.mad21spring.spacenewsapplication.Article;
 @Dao
 public interface NewsDAO {
 
-//    @Query("SELECT * FROM newsDTO")
-//    LiveData<List<NewsDTO>> getReadLaterList();
-
     @Insert
     void addArticle(Article article);
 
-    @Query("DELETE FROM cityDTO WHERE uid LIKE :uid")
-    void deleteArticle(int uid);
+    @Query("DELETE FROM Article WHERE ArticleID LIKE :ArticleID")
+    void deleteArticle(String ArticleID);
 }

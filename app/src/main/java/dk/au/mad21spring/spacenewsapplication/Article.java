@@ -1,7 +1,9 @@
 package dk.au.mad21spring.spacenewsapplication;
 
+import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+@Entity
 public class Article {
 
     @PrimaryKey(autoGenerate = true)
