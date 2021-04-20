@@ -1,11 +1,7 @@
 package dk.au.mad21spring.spacenewsapplication.Database;
 
 import android.app.Application;
-import android.content.Context;
 import android.util.Log;
-
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -16,14 +12,8 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import dk.au.mad21spring.spacenewsapplication.Article;
 
 public class Repository {
 
@@ -77,11 +67,12 @@ public class Repository {
 
     private void parseJson(String json){
         Gson gson = new GsonBuilder().create();
-        Article articleFromAPI =  gson.fromJson(json, Article.class);
+        ArticleDTO articleFromAPI =  gson.fromJson(json, ArticleDTO.class);
 
         if(articleFromAPI!=null){
-            Log.d(TAG, "parseJson: Article ID: " + articleFromAPI.ArticleID + ", title: " + articleFromAPI.Title);
-            // Do something.... Add to database?
+            Log.d(TAG, "parseJson: Title: " + articleFromAPI.getTitle() + ", news site: " + articleFromAPI.getNewsSite());
+
+            addArticleAsynch(new Article("", articleFromAPI.getTitle(), articleFromAPI.getUrl(), articleFromAPI.getImageUrl(), articleFromAPI.getNewsSite(),articleFromAPI.getSummary()));
         }
     }
 

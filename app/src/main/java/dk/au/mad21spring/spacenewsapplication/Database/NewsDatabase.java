@@ -6,10 +6,8 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import dk.au.mad21spring.spacenewsapplication.Article;
-
 // Code regarding database inspired by code demo from class: "roomdemo 1.1"
-@Database(entities = {Article.class}, version = 4)
+@Database(entities = {Article.class}, version = 5)
 public abstract class NewsDatabase extends RoomDatabase {
     public abstract NewsDAO newsDAO();
     private static NewsDatabase instance;

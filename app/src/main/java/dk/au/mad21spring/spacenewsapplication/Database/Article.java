@@ -1,13 +1,18 @@
-package dk.au.mad21spring.spacenewsapplication;
+package dk.au.mad21spring.spacenewsapplication.Database;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 @Entity
 public class Article {
 
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    public int Id;
 
     public String ArticleID;
     public String Title;
@@ -29,4 +34,6 @@ public class Article {
         this.NewsSite = newsSite;
         this.Summary = summary;
     }
+
+    // Get set methods
 }
