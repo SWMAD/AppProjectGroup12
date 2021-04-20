@@ -20,7 +20,7 @@ import dk.au.mad21spring.spacenewsapplication.ViewModels.MainViewModel;
 
 public class MainActivity extends AppCompatActivity implements NewsAdapter.INewsItemClickedListener {
 
-    private Button btnAdd, btnDelete;
+    private Button btnAdd, btnDelete, btnAPI;
     private MainViewModel vm;
     private RecyclerView recyclerView;
     private NewsAdapter adapter;
@@ -55,6 +55,14 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.INews
             }
         });
 
+        btnAPI = findViewById(R.id.button3);
+        btnAPI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vm.getArticleFromAPI("https://test.spaceflightnewsapi.net/api/v2/articles/6051e86631c42cd69c01e29a");
+            }
+        });
+
         initializeRecyclerView();
         adapter.updateNewsAdapter(articles);
     }
@@ -78,4 +86,6 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.INews
     public void deleteArticleFromReadLater() {
         vm.deleteArticle(testArticle);
     }
+
+
 }
