@@ -9,4 +9,12 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="txtSavedForLaterHeader">SAVED FOR LATER</string>
+    <string name="txtNewsSide">News Side:</string>
+    <string name="txtPublishedDetail">Published:</string>
+    <string name="txtSummaryDetail">Summary:</string>
+    <string name="txtUpdatedDetail">Updated:</string>
+    <string name="btnReadArticle">Read Article</string>
+    <string name="btnSaveForLater">Save for later</string>
+    <string name="checkBoxSave">Save for later</string>
 </resources>

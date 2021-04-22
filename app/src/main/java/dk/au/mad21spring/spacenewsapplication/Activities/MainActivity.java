@@ -16,8 +16,6 @@ import dk.au.mad21spring.spacenewsapplication.NewsAdapter;
 import dk.au.mad21spring.spacenewsapplication.R;
 import dk.au.mad21spring.spacenewsapplication.ViewModels.MainViewModel;
 
-//Hej - Anne
-
 public class MainActivity extends AppCompatActivity implements NewsAdapter.INewsItemClickedListener {
 
     private Button btnAdd, btnDelete, btnAPI;
@@ -39,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.INews
         articles.add(testArticle);
         articles.add(testArticle);
 
+        /*
         btnAdd = findViewById(R.id.button);
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.INews
                 vm.getArticleFromAPI("https://test.spaceflightnewsapi.net/api/v2/articles/6051e86631c42cd69c01e29a");
             }
         });
+
+         */
 
         initializeRecyclerView();
         adapter.updateNewsAdapter(articles);
