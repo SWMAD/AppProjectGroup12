@@ -16,6 +16,8 @@ import dk.au.mad21spring.spacenewsapplication.NewsAdapter;
 import dk.au.mad21spring.spacenewsapplication.R;
 import dk.au.mad21spring.spacenewsapplication.ViewModels.MainViewModel;
 
+//Hej - Anne
+
 public class MainActivity extends AppCompatActivity implements NewsAdapter.INewsItemClickedListener {
 
     private Button btnAdd, btnDelete, btnAPI;
