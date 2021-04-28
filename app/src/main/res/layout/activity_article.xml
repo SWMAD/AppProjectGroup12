@@ -184,4 +184,15 @@
         app:layout_constraintTop_toTopOf="@+id/txtUpdatedLabel"
         tools:text="22-04-2021" />
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="263dp"
+        tools:layout_editor_absoluteY="457dp" >
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 </androidx.constraintlayout.widget.ConstraintLayout>
