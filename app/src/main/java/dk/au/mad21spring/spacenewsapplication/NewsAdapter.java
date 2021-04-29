@@ -1,8 +1,11 @@
 package dk.au.mad21spring.spacenewsapplication;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,10 +23,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     private INewsItemClickedListener listener;
     private List<Article> articleList;
+    Context context;
 
-    public NewsAdapter(INewsItemClickedListener listener) {
-        articleList = new ArrayList<>();
+    public NewsAdapter(INewsItemClickedListener listener, Context context, ArrayList<Article> articleList) {
         this.listener = listener;
+        this.context = context;
+        this.articleList = new ArrayList<>();
+        this.articleList = articleList;
     }
 
     public void updateNewsAdapter(List<Article> lists) {
@@ -42,21 +48,27 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
+        holder.txtTitle.setText(articleList.get(position).Title);
+        // Mangler dato i Article klassen
+        //holder.txtPublished.setText(articleList.get(position).);
 //        glide library - for every city there is an city, which is gonna return a URL
 //        Glide.with(holder.imgIcon.getContext()).load(cityList.get(position).getImageResourceId()).into(holder.imgIcon);
-//        holder.txtCity.setText(cityList.get(position).Name);
     }
 
     @Override
     public int getItemCount() {
-        return articleList.size();
+        if (articleList != null ) {
+            return articleList.size();
+        } else {
+            return 0;
+        }
     }
 
     public class NewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 //        //Widgets
-//        ImageView imgIcon;
-//        TextView txtCity;
+        ImageView imgArticle;
+        TextView txtTitle, txtPublished;
 
         INewsItemClickedListener listener;
 
@@ -64,8 +76,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             super(itemView);
 
             //references from layout file
-//            imgIcon = itemView.findViewById(R.id.imgFlag);
-//            txtCity = itemView.findViewById(R.id.txtCity);
+            imgArticle = itemView.findViewById(R.id.imgArticle);
+            txtTitle = itemView.findViewById(R.id.txtTitle);
+            txtPublished = itemView.findViewById(R.id.txtPublished);
             listener = newsItemClickedListener; //save listener interface
 
             itemView.setOnClickListener(this);

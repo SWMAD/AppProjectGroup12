@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="SPACE NEWS"
+        android:text="@string/inAppName"
         android:textSize="30sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtNewSideLabel"
+        android:id="@+id/txtNewsSiteLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -28,7 +28,7 @@
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imViewDetail" />
 
     <TextView
         android:id="@+id/txtPublishedLabel"
@@ -38,22 +38,22 @@
         android:text="@string/txtPublishedDetail"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/txtNewSideLabel"
-        app:layout_constraintTop_toBottomOf="@+id/txtNewSideLabel" />
+        app:layout_constraintStart_toStartOf="@+id/txtNewsSiteLabel"
+        app:layout_constraintTop_toBottomOf="@+id/txtNewsSiteLabel" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imViewDetail"
         android:layout_width="155dp"
         android:layout_height="155dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitelDetail"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitleDetail"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/txtTitelDetail"
+        android:id="@+id/txtTitleDetail"
         android:layout_width="338dp"
         android:layout_height="93dp"
         android:layout_marginStart="32dp"
@@ -61,7 +61,6 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:text="TextView"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,20 +76,18 @@
         app:layout_constraintGuide_begin="48dp" />
 
     <TextView
-        android:id="@+id/txtNewSideDetail"
+        android:id="@+id/txtNewsSiteDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/txtPublishedDetail"
-        app:layout_constraintTop_toTopOf="@+id/txtNewSideLabel"
+        app:layout_constraintTop_toTopOf="@+id/txtNewsSiteLabel"
         tools:text="Spaceflight Now" />
 
     <TextView
         android:id="@+id/txtPublishedDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toTopOf="@+id/txtPublishedLabel"
@@ -105,12 +102,11 @@
 
     <TextView
         android:id="@+id/txtSummaryDetail"
-        android:layout_width="374dp"
+        android:layout_width="0dp"
         android:layout_height="125dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/txtSummaryLabel"
         app:layout_constraintTop_toBottomOf="@+id/txtSummaryLabel"
@@ -173,26 +169,14 @@
         app:layout_constraintTop_toTopOf="@+id/txtPublishedDetail" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/txtUpdatedDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
-        android:text="TextView"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/txtUpdatedLabel"
         app:layout_constraintTop_toTopOf="@+id/txtUpdatedLabel"
         tools:text="22-04-2021" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="263dp"
-        tools:layout_editor_absoluteY="457dp" >
-
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
 </androidx.constraintlayout.widget.ConstraintLayout>
