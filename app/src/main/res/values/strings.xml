@@ -10,4 +10,6 @@
     <string name="btnSaveForLater">Save for later</string>
     <string name="checkBoxSave">Save for later</string>
     <string name="inAppName">SPACE NEWS</string>
+    <string name="Home_nav">Home</string>
+    <string name="Saved_nav">Saved</string>
 </resources>

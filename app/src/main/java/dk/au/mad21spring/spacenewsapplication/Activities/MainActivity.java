@@ -9,9 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +52,9 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
     private LinearLayout listContainer;
     private LinearLayout detailsContainer;
 
+    //bottomNavigationBar
+    private BottomNavigationView bottomNav;
+
     private Button btnAdd, btnDelete, btnAPI;
     private MainViewModel vm;
     private RecyclerView recyclerView;
@@ -68,8 +74,12 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
         setContentView(R.layout.activity_multipane_main);
 
         // get container views
-        listContainer = (LinearLayout) findViewById(R.id.list_container);
-        detailsContainer = (LinearLayout) findViewById(R.id.details_container);
+        listContainer = findViewById(R.id.list_container);
+        detailsContainer = findViewById(R.id.details_container);
+
+        //bottomNavigationView
+        bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         foregroundService = new ForegroundService();
         vm = new ViewModelProvider(this).get(MainViewModel.class);
@@ -133,32 +143,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
             }
         }
 
-        /*
-        btnAdd = findViewById(R.id.button);
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addArticleToReadLater();
-            }
-        });
 
-        btnDelete = findViewById(R.id.button2);
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteArticleFromReadLater();
-            }
-        });
-
-        btnAPI = findViewById(R.id.button3);
-        btnAPI.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vm.getArticleFromAPI("https://test.spaceflightnewsapi.net/api/v2/articles/6051e86631c42cd69c01e29a");
-            }
-        });
-
-         */
         articles.add(testArticle);
         articles.add(testArticle2);
         addArticleToReadLater(testArticle);
@@ -169,6 +154,24 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
         //adapter.updateNewsAdapter(articles);
         startForegroundService();
     }
+
+    //Method to Bottom navigation bar
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()){
+                        case R.id.nav_home:
+                            updateFragmentViewState(UserMode.LIST_VIEW);
+                            break;
+                        case R.id.nav_saved:
+                            updateFragmentViewState(UserMode.SAVED_VIEW);
+                            break;
+
+                    }
+                    return true; //wants to select the clicked item
+                }
+            };
 
     private void startForegroundService() {
         Intent foregroundServiceIntent = new Intent(this, ForegroundService.class);
