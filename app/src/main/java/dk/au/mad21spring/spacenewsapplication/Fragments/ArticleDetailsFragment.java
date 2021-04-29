@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+
 import dk.au.mad21spring.spacenewsapplication.Activities.ArticleSelectorInterface;
 import dk.au.mad21spring.spacenewsapplication.Database.Article;
 import dk.au.mad21spring.spacenewsapplication.R;
@@ -87,7 +89,7 @@ public class ArticleDetailsFragment extends Fragment {
             txtPublishedDetail.setText(article.PublishedAt);
             txtUpdatedDetail.setText(article.UpdatededAt);
             txtSummaryDetail.setText(article.Summary);
-            // opdater billede
+            Glide.with(imViewDetail.getContext()).load(article.ImageUrl).into(imViewDetail); // skal vi have et default billede?
         }
     }
 }

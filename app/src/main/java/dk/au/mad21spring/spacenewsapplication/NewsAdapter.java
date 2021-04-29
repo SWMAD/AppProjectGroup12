@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,10 +51,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     @Override
     public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
         holder.txtTitle.setText(articleList.get(position).Title);
-        // Mangler dato i Article klassen
-        //holder.txtPublished.setText(articleList.get(position).);
-//        glide library - for every city there is an city, which is gonna return a URL
-//        Glide.with(holder.imgIcon.getContext()).load(cityList.get(position).getImageResourceId()).into(holder.imgIcon);
+        holder.txtPublished.setText(articleList.get(position).PublishedAt);
+        Glide.with(holder.imgArticle.getContext()).load(articleList.get(position).ImageUrl).into(holder.imgArticle); // skal vi have et default billede?
     }
 
     @Override

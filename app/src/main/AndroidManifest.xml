@@ -2,9 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dk.au.mad21spring.spacenewsapplication">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -16,8 +17,8 @@
         <service
             android:name="dk.au.mad21spring.spacenewsapplication.Services.ForegroundService"
             android:enabled="true"
-            android:exported="false"></service>
-        <activity android:name=".Activities.ArticleActivity"></activity>
+            android:exported="false" />
+        <activity android:name=".Activities.ArticleActivity" />
         <activity android:name=".Activities.ReadLaterActivity" />
         <activity android:name=".Activities.MainActivity">
             <intent-filter>

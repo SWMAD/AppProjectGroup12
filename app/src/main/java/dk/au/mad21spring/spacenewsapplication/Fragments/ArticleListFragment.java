@@ -87,7 +87,7 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.INewsIt
     }
 
     public void setArticles(ArrayList<Article> articles){
-        this.articles = (ArrayList<Article>) articles.clone();
+        this.articles = articles;
     }
 
     @Override

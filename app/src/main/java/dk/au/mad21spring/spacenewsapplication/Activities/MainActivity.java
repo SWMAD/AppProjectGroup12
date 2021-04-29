@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
     // denne metode er ikke helt rigtig endnu
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+
         // hvad skal der ske når man trykker tilbage
         if (phoneMode == phoneMode.LANDSCAPE) {
             if (userMode == UserMode.SAVED_VIEW) {
@@ -233,6 +233,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
                 updateFragmentViewState(UserMode.LIST_VIEW);
             }
         }
+
     }
 
     @Override
@@ -242,7 +243,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
         super.onSaveInstanceState(outState);
     }
 
-    // jeg ved ikke om vi skal finde en anden måde at gøre dette på?
+    // jeg ved ikke om vi skal finde en anden måde at gøre dette på? Kig på at gøre den kortere
     private void updateFragmentViewState(UserMode targetMode) {
         // update view
         if (targetMode == UserMode.DETAIL_VIEW) {
@@ -350,14 +351,14 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
     // dette er blot til test
     private void loadArticle(List<Article> articles) {
         for (int i = 0; i < 20; i++) {
-            articles.add(new Article("16v33fgrh3", "My article" + i, "www", "www", "news site", "summary ", "01-01-21", "02-01-21"));
+            articles.add(new Article("16v33fgrh3", "My article" + i, "www", "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9%22", "news site", "summary ", "01-01-21", "02-01-21"));
         }
     }
 
     // dette er blot til test
     private void loadSavedArticle(List<Article> articles) {
         for (int i = 0; i < 3; i++) {
-            savedArticles.add(new Article("2131dsf", "Saved article" + i, "www", "www", "news site", "summary ", "01-01-21", "02-01-21"));
+            savedArticles.add(new Article("2131dsf", "Saved article" + i, "www", "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9%22", "news site", "summary ", "01-01-21", "02-01-21"));
 
         }
     }
