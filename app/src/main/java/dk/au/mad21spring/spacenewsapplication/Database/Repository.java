@@ -13,6 +13,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.List;
 import java.util.Random;
@@ -125,7 +129,13 @@ public class Repository {
     }
 
     private void parseJsonAllArticles(String json){
-//        Gson gson = new GsonBuilder().create();
+     Gson gson = new GsonBuilder().create();
+        //JsonArray list = new JsonArray(json)
+        try {
+            JSONArray list = new JSONArray(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 //        ArticleDTO articleFromAPI =  gson.fromJson(json, ArticleDTO.class);
 //
 //        if(articleFromAPI!=null){
