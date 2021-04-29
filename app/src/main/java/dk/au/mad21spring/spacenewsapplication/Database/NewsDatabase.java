@@ -7,7 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 // Code regarding database inspired by code demo from class: "roomdemo 1.1"
-@Database(entities = {Article.class}, version = 5)
+@Database(entities = {Article.class}, version = 6)
 public abstract class NewsDatabase extends RoomDatabase {
     public abstract NewsDAO newsDAO();
     private static NewsDatabase instance;

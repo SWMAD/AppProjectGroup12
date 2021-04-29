@@ -21,7 +21,105 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import dk.au.mad21spring.spacenewsapplication.Database.Article;
+import dk.au.mad21spring.spacenewsapplication.Database.Repository;
+import dk.au.mad21spring.spacenewsapplication.R;
+
+import static java.sql.Types.NULL;
+
 public class ForegroundService extends Service {
+
+    private static final String TAG="ForegroundService";
+    public static final String SERVICE_CHANNEL = "serviceChannel";
+    public static final int NOTIFICATION_ID = 55;
+
+    private Repository repository;
+    ExecutorService executorService;
+
+    private boolean started = false;
+    private int sleepTime = 10000;
+
+    private Notification notification;
+    private NotificationCompat.Builder notificationBuilder;
+    private NotificationManager notificationManager;
+
+    public ForegroundService() {
+    }
+
+    @Override
+    public void onCreate() {
+        repository = Repository.getInstance(getApplication());
+        super.onCreate();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        super.onStartCommand(intent, flags, startId);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(SERVICE_CHANNEL, "Foreground Service", NotificationManager.IMPORTANCE_LOW);
+            notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        notificationBuilder = new NotificationCompat.Builder(this, SERVICE_CHANNEL);
+
+        notification = notificationBuilder
+                .setContentTitle("Foreground service")
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .build();
+
+        startForeground(NOTIFICATION_ID, notification);
+        doBackgroundWork();
+
+        return START_STICKY;
+    }
+
+    private void doBackgroundWork() {
+        if(!started) {
+            started = true;
+            doSleepLoop();
+        }
+    }
+
+    private void doSleepLoop() {
+        final Handler h = new Handler(getMainLooper());
+
+        if (executorService == null) {
+            executorService = Executors.newSingleThreadExecutor();
+        }
+
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    Thread.sleep(sleepTime);
+                    h.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Article readLaterArticle = repository.getReadLaterArticle();
+                            notification = notificationBuilder.setContentText("Remember, you have saved an article: " + readLaterArticle.Title).build();
+                            notificationManager.notify(NOTIFICATION_ID, notification);
+                            Log.e(TAG, "Remember, you have saved an article: " + readLaterArticle.Title);
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    Log.e(TAG, "run: EROOR", e);
+                }
+
+                if (started) {
+                    doSleepLoop();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onDestroy() {
+        started = false;
+        super.onDestroy();
+    }
 
     @Nullable
     @Override

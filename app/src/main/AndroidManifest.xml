@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -12,6 +13,10 @@
         android:roundIcon="@mipmap/ic_spacenews_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SpaceNewsApplication">
+        <service
+            android:name="dk.au.mad21spring.spacenewsapplication.Services.ForegroundService"
+            android:enabled="true"
+            android:exported="false"></service>
         <activity android:name=".Activities.ArticleActivity"></activity>
         <activity android:name=".Activities.ReadLaterActivity" />
         <activity android:name=".Activities.MainActivity">

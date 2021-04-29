@@ -19,5 +19,7 @@ public class MainViewModel extends AndroidViewModel {
 
     public void addArticle(Article article) {repository.addArticleAsynch(article);}
     public void deleteArticle(Article article) {repository.deleteArticleAsynch(article);}
-    public void getArticleFromAPI(String url) {repository.sendRequest(url);}
+    public void getOneArticleFromAPI(String url) {repository.sendRequestOneArticle(url);}
+    public void getAllArticlesFromAPI() {repository.sendRequestAllArticles();}
+
 }

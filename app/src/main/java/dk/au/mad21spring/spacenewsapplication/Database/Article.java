@@ -20,12 +20,14 @@ public class Article {
     public String ImageUrl;
     public String NewsSite;
     public String Summary;
+    public String PublishedAt;
+    public String UpdatededAt;
 
     public Article() {
 
     }
 
-    public Article(String articleID, String title, String url, String imageUrl, String newsSite, String summary)
+    public Article(String articleID, String title, String url, String imageUrl, String newsSite, String summary, String publishedAt, String updatedAt)
     {
         this.ArticleID = articleID;
         this.Title = title;
@@ -33,6 +35,8 @@ public class Article {
         this.ImageUrl = imageUrl;
         this.NewsSite = newsSite;
         this.Summary = summary;
+        this.PublishedAt = publishedAt;
+        this.UpdatededAt = updatedAt;
     }
 
     // Get set methods

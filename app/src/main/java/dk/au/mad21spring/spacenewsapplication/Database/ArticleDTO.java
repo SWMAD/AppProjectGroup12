@@ -35,13 +35,14 @@ public class ArticleDTO {
     @SerializedName("updatedAt")
     @Expose
     private String updatedAt;
-    @SerializedName("featured")
-    @Expose
-    private Boolean featured;
-    @SerializedName("launches")
-    @Expose
-    private List<Object> launches = null;
 
+//    @SerializedName("featured")
+//    @Expose
+//    private Boolean featured;
+//    @SerializedName("launches")
+//    @Expose
+//    private List<Object> launches = null;
+//
 //    @SerializedName("events")
 //    @Expose
 //    private List<Event> events = null;
@@ -110,22 +111,22 @@ public class ArticleDTO {
         this.updatedAt = updatedAt;
     }
 
-    public Boolean getFeatured() {
-        return featured;
-    }
-
-    public void setFeatured(Boolean featured) {
-        this.featured = featured;
-    }
-
-    public List<Object> getLaunches() {
-        return launches;
-    }
-
-    public void setLaunches(List<Object> launches) {
-        this.launches = launches;
-    }
-
+//    public Boolean getFeatured() {
+//        return featured;
+//    }
+//
+//    public void setFeatured(Boolean featured) {
+//        this.featured = featured;
+//    }
+//
+//    public List<Object> getLaunches() {
+//        return launches;
+//    }
+//
+//    public void setLaunches(List<Object> launches) {
+//        this.launches = launches;
+//    }
+//
 //    public List<Event> getEvents() {
 //        return events;
 //    }
