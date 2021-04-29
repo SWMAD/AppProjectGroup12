@@ -1,20 +1,13 @@
 <resources>
     <string name="app_name">SpaceNewsApplication</string>
     <string name="title_activity_read_later">ReadLaterActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="txtSavedForLaterHeader">SAVED FOR LATER</string>
-    <string name="txtNewsSide">News Side:</string>
+    <string name="txtNewsSide">News site:</string>
     <string name="txtPublishedDetail">Published:</string>
     <string name="txtSummaryDetail">Summary:</string>
     <string name="txtUpdatedDetail">Updated:</string>
     <string name="btnReadArticle">Read Article</string>
     <string name="btnSaveForLater">Save for later</string>
     <string name="checkBoxSave">Save for later</string>
+    <string name="inAppName">SPACE NEWS</string>
 </resources>
