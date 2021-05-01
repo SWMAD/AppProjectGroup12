@@ -14,10 +14,13 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
@@ -35,6 +38,7 @@ public class Repository {
 
     //private LiveData<List<Article>> readLaterList;
     private List<Article> readLaterList;
+    private ArrayList<Article> apiArticlesList;
 
     public static Repository getInstance(Application app) {
         if (repository == null) {
@@ -49,10 +53,14 @@ public class Repository {
         this.app = app;
         //readLaterList = db.newsDAO().getAllReadLaterArticles();
         readLaterList = db.newsDAO().getAllReadLaterArticlesNonAsync();
+
+        sendRequestAllArticles();
+        //sendRequestOneArticle("https://spaceflightnewsapi.net/api/v2/articles/608a9d4597ebc0001c7d2d08");
     }
 
     //public LiveData<List<Article>> getReadLaterList() {return readLaterList;}
     public List<Article> getReadLaterList() {return readLaterList;}
+    public ArrayList<Article> getApiArticlesList() {return apiArticlesList;}
 
     public Article getReadLaterArticle(){
 
@@ -123,26 +131,38 @@ public class Repository {
 
         if(articleFromAPI!=null){
             Log.d(TAG, "parseJson: Title: " + articleFromAPI.getTitle() + ", news site: " + articleFromAPI.getNewsSite());
-
             addArticleAsynch(new Article("", articleFromAPI.getTitle(), articleFromAPI.getUrl(), articleFromAPI.getImageUrl(), articleFromAPI.getNewsSite(),articleFromAPI.getSummary(), articleFromAPI.getPublishedAt(), articleFromAPI.getUpdatedAt()));
         }
     }
 
     private void parseJsonAllArticles(String json){
-     Gson gson = new GsonBuilder().create();
-        //JsonArray list = new JsonArray(json)
+        if (apiArticlesList != null) {
+            apiArticlesList.clear();
+        }
+        ArrayList<JSONObject> JSONlist = new ArrayList<>();
+        Gson gson = new GsonBuilder().create();
+        Article articleFromAPI;
+
         try {
-            JSONArray list = new JSONArray(json);
+            JSONArray jsonArray = new JSONArray(json);
+            for(int i = 0 ; i < jsonArray.length() ; i++){
+                //JSONObject article = jsonArray.getJSONObject(i);
+                String articleID = jsonArray.getJSONObject(i).getString("id");
+                String title = jsonArray.getJSONObject(i).getString("title");
+                String url = jsonArray.getJSONObject(i).getString("url");
+                String imageUrl = jsonArray.getJSONObject(i).getString("imageUrl");
+                String newsSite = jsonArray.getJSONObject(i).getString("newsSite");
+                String summary = jsonArray.getJSONObject(i).getString("summary");
+                String publishedAt = jsonArray.getJSONObject(i).getString("publishedAt");
+                String updatededAt = jsonArray.getJSONObject(i).getString("updatedAt");
+
+                articleFromAPI =  new Article(articleID, title, url, imageUrl, newsSite, summary, publishedAt, updatededAt);
+                Log.d(TAG, "parseJson: Title: " + articleFromAPI.Title + ", news site: " + articleFromAPI.NewsSite);
+                addArticleAsynch(new Article("", articleFromAPI.Title, articleFromAPI.Url, articleFromAPI.ImageUrl, articleFromAPI.NewsSite, articleFromAPI.Summary, articleFromAPI.PublishedAt, articleFromAPI.UpdatededAt));
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-//        ArticleDTO articleFromAPI =  gson.fromJson(json, ArticleDTO.class);
-//
-//        if(articleFromAPI!=null){
-//            Log.d(TAG, "parseJson: Title: " + articleFromAPI.getTitle() + ", news site: " + articleFromAPI.getNewsSite());
-//
-//            addArticleAsynch(new Article("", articleFromAPI.getTitle(), articleFromAPI.getUrl(), articleFromAPI.getImageUrl(), articleFromAPI.getNewsSite(),articleFromAPI.getSummary(), articleFromAPI.getPublishedAt(), articleFromAPI.getUpdatedAt()));
-//        }
     }
 
     // ########################## Asynch methods ##########################
@@ -163,6 +183,16 @@ public class Repository {
             @Override
             public void run() {
                 db.newsDAO().deleteArticle(article.ArticleID);
+            }
+        });
+    }
+
+    // Delete all cities in database
+    public void deleteAllArticles(){
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                db.newsDAO().deleteAll();
             }
         });
     }

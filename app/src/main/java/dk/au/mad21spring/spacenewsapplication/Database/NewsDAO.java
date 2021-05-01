@@ -22,4 +22,7 @@ public interface NewsDAO {
 
     @Query("SELECT * FROM Article")
     List<Article> getAllReadLaterArticlesNonAsync();
+
+    @Query("DELETE FROM Article")
+    void deleteAll();
 }

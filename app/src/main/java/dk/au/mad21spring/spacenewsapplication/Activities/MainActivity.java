@@ -55,16 +55,13 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
     //bottomNavigationBar
     private BottomNavigationView bottomNav;
 
-    private Button btnAdd, btnDelete, btnAPI;
     private MainViewModel vm;
-    private RecyclerView recyclerView;
-    private NewsAdapter adapter;
+//    private RecyclerView recyclerView;
+//    private NewsAdapter adapter;
 
-    public ArrayList<Article> articles; // hvorfor er denne public?
+    private ArrayList<Article> articles;
     private int selectedArticlePosition;
     private ArrayList<Article> savedArticles;
-    private Article testArticle = new Article("16v33fgrh3", "My article", "", "", "", "", "", "");
-    private Article testArticle2 = new Article("y324724279", "My article2", "", "", "", "", "", "");
 
     ForegroundService foregroundService;
 
@@ -83,12 +80,12 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
 
         foregroundService = new ForegroundService();
         vm = new ViewModelProvider(this).get(MainViewModel.class);
-        //vm.getAllArticlesFromAPI();
 
+        vm.deleteAllArticles();
         articles = new ArrayList<Article>();
-        loadArticle(articles);
+        loadArticles();
         savedArticles = new ArrayList<Article>();
-        loadSavedArticle(savedArticles);
+        loadSavedArticle();
 
         // determine orientation
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -143,17 +140,15 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
             }
         }
 
-
-        articles.add(testArticle);
-        articles.add(testArticle2);
-        addArticleToReadLater(testArticle);
-        addArticleToReadLater(testArticle2);
-
         updateFragmentViewState(userMode);
-        //initializeRecyclerView();
-        //adapter.updateNewsAdapter(articles);
         startForegroundService();
     }
+
+//    private void goToArticle(int cityID) {
+//        Intent i = new Intent(this, DetailsActivity.class);
+//        i.putExtra(Constants.CITY, cityID);
+//        startActivityForResult(i, REQUEST_CODE_DETAILS);
+//    }
 
     //Method to Bottom navigation bar
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -182,35 +177,6 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
         Intent foregroundServiceIntent = new Intent(this, ForegroundService.class);
         stopService(foregroundServiceIntent);
     }
-
-
-    /*
-    @Override
-    public void onArticleClicked(int index) {
-
-    }
-
-     */
-
-    // recyclerview og adapter er flyttet til ArticleListFragment
-    /*
-    private void initializeRecyclerView() {
-        recyclerView = findViewById(R.id.recyclerView);
-        adapter = new NewsAdapter(this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
-
-     */
-
-    public void addArticleToReadLater(Article article) {
-        vm.addArticle(article);
-    }
-
-    public void deleteArticleFromReadLater(Article article) {
-        vm.deleteArticle(article);
-    }
-
 
     // Fragments...
     // denne metode er ikke helt rigtig endnu
@@ -349,19 +315,20 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
     }
 
     // dette er blot til test
-    private void loadArticle(List<Article> articles) {
+    private void loadArticles() {
         for (int i = 0; i < 20; i++) {
             articles.add(new Article("16v33fgrh3", "My article" + i, "www", "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9%22", "news site", "summary ", "01-01-21", "02-01-21"));
         }
     }
 
     // dette er blot til test
-    private void loadSavedArticle(List<Article> articles) {
+    private void loadSavedArticle() {
         for (int i = 0; i < 3; i++) {
             savedArticles.add(new Article("2131dsf", "Saved article" + i, "www", "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9%22", "news site", "summary ", "01-01-21", "02-01-21"));
 
         }
     }
+
     @Override
     protected void onDestroy() {
         stopForegroundService();

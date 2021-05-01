@@ -12,18 +12,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 
 import dk.au.mad21spring.spacenewsapplication.Activities.ArticleSelectorInterface;
 import dk.au.mad21spring.spacenewsapplication.Database.Article;
 import dk.au.mad21spring.spacenewsapplication.R;
+import dk.au.mad21spring.spacenewsapplication.ViewModels.ArticleViewModel;
+import dk.au.mad21spring.spacenewsapplication.ViewModels.MainViewModel;
 
 public class ArticleDetailsFragment extends Fragment {
 
     private TextView txtTitleDetail, txtNewsSiteDetail, txtPublishedDetail, txtUpdatedDetail, txtSummaryDetail;
     private Button btnReadArticle, btnSaveForLater;
     private ImageView imViewDetail;
+    private ArticleViewModel vm;
 
     private ArticleSelectorInterface articleSelector;
 
@@ -56,9 +60,11 @@ public class ArticleDetailsFragment extends Fragment {
         btnSaveForLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle button click
+                //vm.addArticleToReadLater();
             }
         });
+
+        vm = new ViewModelProvider(this).get(ArticleViewModel.class);
 
         updateArticle();
 
