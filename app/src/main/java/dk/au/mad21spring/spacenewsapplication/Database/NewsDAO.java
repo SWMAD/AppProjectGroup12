@@ -25,4 +25,7 @@ public interface NewsDAO {
 
     @Query("DELETE FROM Article")
     void deleteAll();
+
+    @Query("SELECT * FROM Article WHERE ArticleID LIKE :ArticleID")
+    Article isArticleSaved(String ArticleID);
 }

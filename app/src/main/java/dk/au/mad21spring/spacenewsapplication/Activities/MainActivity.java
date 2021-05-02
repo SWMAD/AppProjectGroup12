@@ -56,8 +56,6 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
     private BottomNavigationView bottomNav;
 
     private MainViewModel vm;
-//    private RecyclerView recyclerView;
-//    private NewsAdapter adapter;
 
     private ArrayList<Article> articles;
     private int selectedArticlePosition;
@@ -144,12 +142,6 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
         updateFragmentViewState(userMode);
         startForegroundService();
     }
-
-//    private void goToArticle(int cityID) {
-//        Intent i = new Intent(this, DetailsActivity.class);
-//        i.putExtra(Constants.CITY, cityID);
-//        startActivityForResult(i, REQUEST_CODE_DETAILS);
-//    }
 
     //Method to Bottom navigation bar
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -327,10 +319,10 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
 
     // dette er blot til test
     private void loadSavedArticle() {
-        for (int i = 0; i < 3; i++) {
-            savedArticles.add(new Article("2131dsf", "Saved article" + i, "www", "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9%22", "news site", "summary ", "01-01-21", "02-01-21"));
-
-        }
+        savedArticles = vm.getAllSavedArticles();
+//        for (int i = 0; i < 3; i++) {
+//            savedArticles.add(new Article("2131dsf", "Saved article" + i, "www", "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9%22", "news site", "summary ", "01-01-21", "02-01-21"));
+//        }
     }
 
     @Override

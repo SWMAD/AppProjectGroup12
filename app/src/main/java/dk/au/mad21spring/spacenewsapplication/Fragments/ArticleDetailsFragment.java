@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +29,7 @@ public class ArticleDetailsFragment extends Fragment {
     private Button btnReadArticle, btnSaveForLater;
     private ImageView imViewDetail;
     private ArticleViewModel vm;
+    private Article chosenArticle;
 
     private ArticleSelectorInterface articleSelector;
 
@@ -38,6 +40,9 @@ public class ArticleDetailsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        chosenArticle = new Article();
+        vm = new ViewModelProvider(this).get(ArticleViewModel.class);
 
         // inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_article, container, false);
@@ -60,13 +65,28 @@ public class ArticleDetailsFragment extends Fragment {
         btnSaveForLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //vm.addArticleToReadLater();
+                if (vm.isArticleSaved(chosenArticle) == false){
+                    vm.addArticleToReadLater(chosenArticle);
+                    Toast.makeText(getContext(), "Article is saved for later", Toast.LENGTH_SHORT).show();
+                    btnSaveForLater.setText(R.string.RemoveFromReadLater);
+                }
+                else {
+                    vm.deleteArticle(chosenArticle);
+                    Toast.makeText(getContext(), "Article is removed from read later list", Toast.LENGTH_SHORT).show();
+                    btnSaveForLater.setText(R.string.btnSaveForLater);
+                }
             }
         });
 
-        vm = new ViewModelProvider(this).get(ArticleViewModel.class);
-
         updateArticle();
+
+//        Virker ikke helt
+//        if (vm.isArticleSaved(chosenArticle) == false){
+//            btnSaveForLater.setText(R.string.btnSaveForLater);
+//        }
+//        else {
+//            btnSaveForLater.setText(R.string.RemoveFromReadLater);
+//        }
 
         return view;
     }
@@ -89,6 +109,7 @@ public class ArticleDetailsFragment extends Fragment {
     }
 
     public void setArticle(Article article){
+
         if (txtTitleDetail != null && txtNewsSiteDetail != null && txtPublishedDetail != null && txtUpdatedDetail != null && txtSummaryDetail != null && txtPublishedDetail != null && txtUpdatedDetail != null) {
             txtTitleDetail.setText(article.Title);
             txtNewsSiteDetail.setText(article.NewsSite);
@@ -97,5 +118,7 @@ public class ArticleDetailsFragment extends Fragment {
             txtSummaryDetail.setText(article.Summary);
             Glide.with(imViewDetail.getContext()).load(article.ImageUrl).into(imViewDetail); // skal vi have et default billede?
         }
+
+        chosenArticle = article;
     }
 }

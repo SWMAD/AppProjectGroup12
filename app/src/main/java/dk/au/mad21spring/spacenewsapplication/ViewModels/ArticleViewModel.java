@@ -17,6 +17,7 @@ public class ArticleViewModel extends AndroidViewModel {
         repository = Repository.getInstance(application);
     }
 
+    public boolean isArticleSaved(Article article) {return repository.cityExists(article);}
     public void addArticleToReadLater(Article article) {repository.addArticleAsynch(article);}
-    //public void deleteArticle(Article article) {repository.deleteArticleAsynch(article);}
+    public void deleteArticle(Article article) {repository.deleteArticleAsynch(article);}
 }

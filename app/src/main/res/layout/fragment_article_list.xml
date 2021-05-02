@@ -28,7 +28,7 @@
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/btnTESTFRAG"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,15 +36,6 @@
         app:spanCount="2"
         tools:itemCount="8"
         tools:listitem="@layout/grid_item" />
-
-    <Button
-        android:id="@+id/btnTESTFRAG"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TEST FRAGMENT"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

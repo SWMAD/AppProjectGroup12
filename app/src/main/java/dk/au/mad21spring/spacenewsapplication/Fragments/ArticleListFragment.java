@@ -11,6 +11,8 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +23,8 @@ import dk.au.mad21spring.spacenewsapplication.Activities.ArticleSelectorInterfac
 import dk.au.mad21spring.spacenewsapplication.Database.Article;
 import dk.au.mad21spring.spacenewsapplication.NewsAdapter;
 import dk.au.mad21spring.spacenewsapplication.R;
+import dk.au.mad21spring.spacenewsapplication.ViewModels.ArticleViewModel;
+import dk.au.mad21spring.spacenewsapplication.ViewModels.ReadLaterViewModel;
 
 public class ArticleListFragment extends Fragment implements NewsAdapter.INewsItemClickedListener {
 
@@ -28,6 +32,7 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.INewsIt
     private NewsAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private Button btnSaved;
+    private ReadLaterViewModel vm;
 
     private ArrayList<Article> articles; // her skal vi nok have noget live data i stedet
 
@@ -44,17 +49,7 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.INewsIt
 
         recyclerView = view.findViewById(R.id.recyclerView);
 
-        // dette er kun til test af fragment. senere skal vi lave burgermenu/navigationbar...
-        btnSaved = view.findViewById(R.id.btnTESTFRAG);
-        btnSaved.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                articleSelector.viewSaved();
-            }
-        });
-
         return view;
-
     }
 
     @Override

@@ -18,8 +18,7 @@
             android:name="dk.au.mad21spring.spacenewsapplication.Services.ForegroundService"
             android:enabled="true"
             android:exported="false" />
-        <activity android:name=".Activities.ArticleActivity" />
-        <activity android:name=".Activities.ReadLaterActivity" />
+
         <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -5,6 +5,9 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
+import java.util.ArrayList;
+
+import dk.au.mad21spring.spacenewsapplication.Database.Article;
 import dk.au.mad21spring.spacenewsapplication.Database.Repository;
 
 public class ReadLaterViewModel extends AndroidViewModel {
@@ -15,5 +18,4 @@ public class ReadLaterViewModel extends AndroidViewModel {
         super(application);
         repository = Repository.getInstance(application);
     }
-
 }

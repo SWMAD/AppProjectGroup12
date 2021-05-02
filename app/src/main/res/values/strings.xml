@@ -12,4 +12,5 @@
     <string name="inAppName">SPACE NEWS</string>
     <string name="Home_nav">Home</string>
     <string name="Saved_nav">Saved</string>
+    <string name="RemoveFromReadLater">Remove article from read later list</string>
 </resources>

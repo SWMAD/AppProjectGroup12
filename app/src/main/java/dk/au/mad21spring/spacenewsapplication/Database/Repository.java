@@ -38,7 +38,7 @@ public class Repository {
     private int index = 0;
 
     //private LiveData<List<Article>> readLaterList;
-    private List<Article> readLaterList;
+    private ArrayList<Article> readLaterList;
     private ArrayList<Article> apiArticlesList;
 
     public static Repository getInstance(Application app) {
@@ -53,7 +53,7 @@ public class Repository {
         executor = Executors.newSingleThreadExecutor();
         this.app = app;
         //readLaterList = db.newsDAO().getAllReadLaterArticles();
-        readLaterList = db.newsDAO().getAllReadLaterArticlesNonAsync();
+        readLaterList = (ArrayList<Article>) db.newsDAO().getAllReadLaterArticlesNonAsync();
         apiArticlesList = new ArrayList<Article>();
 
         // ***** Skal slettes
@@ -62,11 +62,10 @@ public class Repository {
         // *****
 
         sendRequestAllArticles();
-        //sendRequestOneArticle("https://spaceflightnewsapi.net/api/v2/articles/608a9d4597ebc0001c7d2d08");
     }
 
     //public LiveData<List<Article>> getReadLaterList() {return readLaterList;}
-    public List<Article> getReadLaterList() {return readLaterList;}
+    public ArrayList<Article> getReadLaterList() {return readLaterList;}
     public ArrayList<Article> getApiArticlesList() {return apiArticlesList;}
 
     public Article getReadLaterArticle(){
@@ -198,6 +197,17 @@ public class Repository {
                 db.newsDAO().deleteAll();
             }
         });
+    }
+
+    // Check if article is already saved for 'read later'
+    public boolean cityExists(Article article){
+
+        if (db.newsDAO().isArticleSaved(article.ArticleID) == null){
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 }
 
