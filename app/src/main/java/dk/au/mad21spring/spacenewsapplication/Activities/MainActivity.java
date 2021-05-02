@@ -81,10 +81,11 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
         foregroundService = new ForegroundService();
         vm = new ViewModelProvider(this).get(MainViewModel.class);
 
-        vm.deleteAllArticles();
+        //vm.deleteAllArticles();
         articles = new ArrayList<Article>();
-        loadArticles();
         savedArticles = new ArrayList<Article>();
+
+        loadArticles();
         loadSavedArticle();
 
         // determine orientation
@@ -316,9 +317,12 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
 
     // dette er blot til test
     private void loadArticles() {
-        for (int i = 0; i < 20; i++) {
-            articles.add(new Article("16v33fgrh3", "My article" + i, "www", "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9%22", "news site", "summary ", "01-01-21", "02-01-21"));
-        }
+//        for (int i = 0; i < 1; i++) {
+//            articles.add(new Article("16v33fgrh3", "My article" + i, "www", "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9%22", "news site", "summary ", "01-01-21", "02-01-21"));
+//        }
+
+        vm.updateNewsFeed();
+        articles = vm.getAllArticlesFromAPI();
     }
 
     // dette er blot til test

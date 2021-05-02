@@ -19,6 +19,4 @@ public class ArticleViewModel extends AndroidViewModel {
 
     public void addArticleToReadLater(Article article) {repository.addArticleAsynch(article);}
     //public void deleteArticle(Article article) {repository.deleteArticleAsynch(article);}
-
-
 }

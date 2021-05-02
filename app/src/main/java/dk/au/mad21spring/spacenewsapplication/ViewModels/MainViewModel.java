@@ -20,7 +20,7 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public void deleteAllArticles() {repository.deleteAllArticles();}
-
-    //public ArrayList<Article> getAllArticlesFromAPI() {return repository.getApiArticlesList();}
+    public ArrayList<Article> getAllArticlesFromAPI() {return repository.getApiArticlesList();}
+    public void updateNewsFeed() {repository.sendRequestAllArticles();}
     //public void getOneArticleFromAPI(String url) {repository.sendRequestOneArticle(url);}
 }

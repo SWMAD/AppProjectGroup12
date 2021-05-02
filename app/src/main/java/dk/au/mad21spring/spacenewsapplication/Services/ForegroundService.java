@@ -98,10 +98,10 @@ public class ForegroundService extends Service {
                     h.post(new Runnable() {
                         @Override
                         public void run() {
-                            Article readLaterArticle = repository.getReadLaterArticle();
-                            notification = notificationBuilder.setContentText("Remember, you have saved an article: " + readLaterArticle.Title).build();
-                            notificationManager.notify(NOTIFICATION_ID, notification);
-                            Log.e(TAG, "Remember, you have saved an article: " + readLaterArticle.Title);
+//                            Article readLaterArticle = repository.getReadLaterArticle();
+//                            notification = notificationBuilder.setContentText("Remember, you have saved an article: " + readLaterArticle.Title).build();
+//                            notificationManager.notify(NOTIFICATION_ID, notification);
+//                            Log.e(TAG, "Remember, you have saved an article: " + readLaterArticle.Title);
                         }
                     });
                 } catch (InterruptedException e) {
