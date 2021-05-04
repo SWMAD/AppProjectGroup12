@@ -24,6 +24,7 @@ import dk.au.mad21spring.spacenewsapplication.Database.Article;
 import dk.au.mad21spring.spacenewsapplication.NewsAdapter;
 import dk.au.mad21spring.spacenewsapplication.R;
 import dk.au.mad21spring.spacenewsapplication.ViewModels.ArticleViewModel;
+import dk.au.mad21spring.spacenewsapplication.ViewModels.MainViewModel;
 import dk.au.mad21spring.spacenewsapplication.ViewModels.ReadLaterViewModel;
 
 public class ArticleListFragment extends Fragment implements NewsAdapter.INewsItemClickedListener {

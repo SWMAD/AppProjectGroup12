@@ -58,8 +58,9 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
     private MainViewModel vm;
 
     private ArrayList<Article> articles;
-    private int selectedArticlePosition;
     private ArrayList<Article> savedArticles;
+
+    private int selectedArticlePosition;
 
     ForegroundService foregroundService;
 
@@ -107,7 +108,9 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
 
 
             articleListFragment.setArticles(articles);
-            articleDetailsFragment.setArticle(articles.get(selectedArticlePosition));
+            if (articles.size() != 0){
+                articleDetailsFragment.setArticle(articles.get(selectedArticlePosition));
+            }
             articleSavedFragment.setArticles(savedArticles);
 
             getSupportFragmentManager().beginTransaction()
@@ -307,22 +310,13 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
         }
     }
 
-    // dette er blot til test
     private void loadArticles() {
-//        for (int i = 0; i < 1; i++) {
-//            articles.add(new Article("16v33fgrh3", "My article" + i, "www", "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9%22", "news site", "summary ", "01-01-21", "02-01-21"));
-//        }
-
         vm.updateNewsFeed();
         articles = vm.getAllArticlesFromAPI();
     }
 
-    // dette er blot til test
     private void loadSavedArticle() {
         savedArticles = vm.getAllSavedArticles();
-//        for (int i = 0; i < 3; i++) {
-//            savedArticles.add(new Article("2131dsf", "Saved article" + i, "www", "https://images.unsplash.com/photo-1461988320302-91bde64fc8e4?ixid=2yJhcHBfaWQiOjEyMDd9%22", "news site", "summary ", "01-01-21", "02-01-21"));
-//        }
     }
 
     @Override

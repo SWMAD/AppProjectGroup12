@@ -52,7 +52,6 @@ public class Repository {
         db = NewsDatabase.getDatabase(app.getApplicationContext());
         executor = Executors.newSingleThreadExecutor();
         this.app = app;
-        //readLaterList = db.newsDAO().getAllReadLaterArticles();
         readLaterList = (ArrayList<Article>) db.newsDAO().getAllReadLaterArticlesNonAsync();
         apiArticlesList = new ArrayList<Article>();
 
@@ -71,16 +70,22 @@ public class Repository {
     public Article getReadLaterArticle(){
 
         int maxIndex = readLaterList.size();
-        Article article = readLaterList.get(index);
 
-        if (index == maxIndex-1){
-            index = 0;
+        if(maxIndex != 0){
+            Article article = readLaterList.get(index);
+
+            if (index == maxIndex-1){
+                index = 0;
+            }
+            else{
+                index++;
+            }
+
+            return article;
         }
         else{
-            index++;
+            return null;
         }
-
-        return article;
     }
 
     // ########################## API methods ##########################
