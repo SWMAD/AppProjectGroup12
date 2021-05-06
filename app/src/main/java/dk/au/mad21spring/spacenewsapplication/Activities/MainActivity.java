@@ -36,11 +36,17 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
 
     private PhoneMode phoneMode;
     private UserMode userMode;
+    private UserMode previousUserMode;
 
     // tags so we can find our fragments later
     private static final String LIST_FRAG = "list_fragment";
     private static final String SAVED_LIST_FRAG = "saved_list_fragment";
     private static final String DETAILS_FRAG = "details_fragment";
+
+    // tags to savedStateInstance
+    private static final String ARTICLE_POSITION = "article_position";
+    private static final String USER_MODE = "user_mode";
+    private static final String PREVIOUS_USER_MODE = "previous_user_mode";
 
     // fragments
     private ArticleListFragment articleListFragment;
@@ -99,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
             // no persisted state, start the app in list view mode and selected index = 0
             selectedArticlePosition = 0;
             userMode = UserMode.LIST_VIEW;
+            previousUserMode = UserMode.LIST_VIEW;
 
             // initialize fragments
             articleListFragment = new ArticleListFragment();
@@ -119,11 +126,15 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
                     .commit();
         } else {
             // got restarted with persisted state, probably due to orientation change
-            selectedArticlePosition = savedInstanceState.getInt("article_position");
-            userMode = (UserMode) savedInstanceState.getSerializable("user_mode");
+            selectedArticlePosition = savedInstanceState.getInt(ARTICLE_POSITION);
+            userMode = (UserMode) savedInstanceState.getSerializable(USER_MODE);
+            previousUserMode = (UserMode) savedInstanceState.getSerializable(PREVIOUS_USER_MODE);
 
             if (userMode == null) {
                 userMode = UserMode.LIST_VIEW;  //default value if none saved
+            }
+            if (previousUserMode == null) {
+                previousUserMode = UserMode.LIST_VIEW;
             }
 
             // check if FragmentManager already holds instance of Fragments, else create them
@@ -191,7 +202,11 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
             } else if (userMode == UserMode.SAVED_VIEW) {
                 updateFragmentViewState(UserMode.LIST_VIEW);
             } else if (userMode == UserMode.DETAIL_VIEW) { // hvad hvis brugeren var i saved view lige før de var i detail view, så skal de tilbage dertil...
-                updateFragmentViewState(UserMode.LIST_VIEW);
+                if (previousUserMode == UserMode.LIST_VIEW) {
+                    updateFragmentViewState(UserMode.LIST_VIEW);
+                } else if (previousUserMode == UserMode.SAVED_VIEW) {
+                    updateFragmentViewState(UserMode.SAVED_VIEW);
+                }
             }
         }
 
@@ -199,29 +214,16 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putInt("article_position", selectedArticlePosition);
-        outState.putSerializable("user_mode", userMode);
+        outState.putInt(ARTICLE_POSITION, selectedArticlePosition);
+        outState.putSerializable(USER_MODE, userMode);
+        outState.putSerializable(PREVIOUS_USER_MODE, previousUserMode);
         super.onSaveInstanceState(outState);
     }
 
-    // jeg ved ikke om vi skal finde en anden måde at gøre dette på? Kig på at gøre den kortere
     private void updateFragmentViewState(UserMode targetMode) {
-        // update view
-        if (targetMode == UserMode.DETAIL_VIEW) {
-            userMode = UserMode.DETAIL_VIEW;
-            switchFragment(targetMode);
-        }
-        if (targetMode == UserMode.LIST_VIEW) {
-            userMode = UserMode.LIST_VIEW;
-            switchFragment(targetMode);
-        }
-        if (targetMode == UserMode.SAVED_VIEW) {
-            userMode = UserMode.SAVED_VIEW;
-            switchFragment(targetMode);
-        } else {
-            //ignore
-        }
-
+        previousUserMode = userMode;
+        userMode = targetMode;
+        switchFragment(targetMode);
     }
 
     // denne metode er ikke rigtig endnu
