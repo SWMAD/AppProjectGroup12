@@ -47,7 +47,7 @@
         android:id="@+id/txtSpaceNews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/inAppName"
         android:textSize="30sp"
         android:textStyle="italic"
