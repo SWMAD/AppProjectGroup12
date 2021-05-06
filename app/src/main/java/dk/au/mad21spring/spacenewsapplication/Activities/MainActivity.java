@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
 
     // keeping track of phone mode and user mode
     public enum PhoneMode {PORTRAIT, LANDSCAPE}
-
     public enum UserMode {LIST_VIEW, DETAIL_VIEW, SAVED_VIEW}
 
     private PhoneMode phoneMode;
@@ -46,9 +45,9 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
     // fragments
     private ArticleListFragment articleListFragment;
     private ArticleDetailsFragment articleDetailsFragment;
-    private ArticleListFragment articleSavedFragment; // ikke sikker på dette, men tror det er sådan vi kan genbruge vores fragment
+    private ArticleListFragment articleSavedFragment;
 
-    // containers we use to put our fragments in
+    // containers to put our fragments in
     private LinearLayout listContainer;
     private LinearLayout detailsContainer;
 
@@ -73,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
         listContainer = findViewById(R.id.list_container);
         detailsContainer = findViewById(R.id.details_container);
 
-        //bottomNavigationView
+        // bottomNavigationView
         bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
@@ -106,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
             articleDetailsFragment = new ArticleDetailsFragment();
             articleSavedFragment = new ArticleListFragment();
 
-
+            // set articles in fragments
             articleListFragment.setArticles(articles);
             if (articles.size() != 0){
                 articleDetailsFragment.setArticle(articles.get(selectedArticlePosition));
@@ -114,9 +113,9 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
             articleSavedFragment.setArticles(savedArticles);
 
             getSupportFragmentManager().beginTransaction()
+                    .add(R.id.details_container, articleDetailsFragment, DETAILS_FRAG)
                     .add(R.id.list_container, articleSavedFragment, SAVED_LIST_FRAG)
                     .replace(R.id.list_container, articleListFragment, LIST_FRAG)
-                    .add(R.id.details_container, articleDetailsFragment, DETAILS_FRAG)
                     .commit();
         } else {
             // got restarted with persisted state, probably due to orientation change
@@ -146,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
         startForegroundService();
     }
 
-    //Method to Bottom navigation bar
+    // method to Bottom navigation bar
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -199,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         outState.putInt("article_position", selectedArticlePosition);
         outState.putSerializable("user_mode", userMode);
         super.onSaveInstanceState(outState);
