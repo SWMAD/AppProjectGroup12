@@ -67,6 +67,24 @@ public class Repository {
     public ArrayList<Article> getReadLaterList() {return readLaterList;}
     public ArrayList<Article> getApiArticlesList() {return apiArticlesList;}
 
+    // return either all articles or saved articles depending on which fragment needs it
+    public ArrayList<Article> getArticles(String fragmentType) {
+        if (fragmentType.equals("list_fragment")) {
+            return getApiArticlesList();
+        } else {
+            return getReadLaterList();
+        }
+    }
+
+    // return article based on which list it should be taken from and the index
+    public Article getArticle(String fragmentType, int index) {
+        if (fragmentType.equals("list_fragment")) {
+            return apiArticlesList.get(index);
+        } else {
+            return readLaterList.get(index);
+        }
+    }
+
     public Article getReadLaterArticle(){
 
         int maxIndex = readLaterList.size();
@@ -143,11 +161,11 @@ public class Repository {
     // ########################## Asynch methods ##########################
 
     // Add new article to database
-    public void addArticleAsynch(Article aticle){
+    public void addArticleAsynch(Article article){
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                db.newsDAO().addArticle(aticle);
+                db.newsDAO().addArticle(article);
             }
         });
     }
@@ -173,7 +191,7 @@ public class Repository {
     }
 
     // Check if article is already saved for 'read later'
-    public boolean cityExists(Article article){
+    public boolean articleExists(Article article){
 
         if (db.newsDAO().isArticleSaved(article.ArticleID) == null){
             return false;

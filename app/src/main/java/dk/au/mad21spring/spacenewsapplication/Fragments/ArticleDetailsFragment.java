@@ -13,7 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
@@ -21,15 +20,14 @@ import com.bumptech.glide.Glide;
 import dk.au.mad21spring.spacenewsapplication.Activities.ArticleSelectorInterface;
 import dk.au.mad21spring.spacenewsapplication.Database.Article;
 import dk.au.mad21spring.spacenewsapplication.R;
-import dk.au.mad21spring.spacenewsapplication.ViewModels.ArticleViewModel;
-import dk.au.mad21spring.spacenewsapplication.ViewModels.MainViewModel;
+import dk.au.mad21spring.spacenewsapplication.ViewModels.DetailsViewModel;
 
 public class ArticleDetailsFragment extends Fragment {
 
     private TextView txtTitleDetail, txtNewsSiteDetail, txtPublishedDetail, txtUpdatedDetail, txtSummaryDetail;
     private Button btnReadArticle, btnSaveForLater;
     private ImageView imViewDetail;
-    private ArticleViewModel vm;
+    private DetailsViewModel vm;
     private Article chosenArticle;
 
     private ArticleSelectorInterface articleSelector;
@@ -43,7 +41,8 @@ public class ArticleDetailsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         chosenArticle = new Article();
-        vm = new ViewModelProvider(this).get(ArticleViewModel.class);
+        vm = new ViewModelProvider(this).get(DetailsViewModel.class);
+        chosenArticle = vm.getArticle("list_fragment", 0); // default value
 
         // inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_article, container, false);
@@ -68,19 +67,18 @@ public class ArticleDetailsFragment extends Fragment {
             public void onClick(View v) {
                 if (vm.isArticleSaved(chosenArticle) == false){
                     vm.addArticleToReadLater(chosenArticle);
-                    Toast.makeText(getContext(), "Article is saved for later", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Article is saved for later", Toast.LENGTH_SHORT).show(); // resource externalization
                     btnSaveForLater.setText(R.string.RemoveFromReadLater);
                 }
                 else {
                     vm.deleteArticle(chosenArticle);
-                    Toast.makeText(getContext(), "Article is removed from read later list", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Article is removed from read later list", Toast.LENGTH_SHORT).show(); // resource externalization
                     btnSaveForLater.setText(R.string.btnSaveForLater);
                 }
             }
         });
 
-        updateArticle();
-
+        setArticle(chosenArticle);
         if (vm.isArticleSaved(chosenArticle) == false){
             btnSaveForLater.setText(R.string.btnSaveForLater);
         }
@@ -102,14 +100,7 @@ public class ArticleDetailsFragment extends Fragment {
         }
     }
 
-    private void updateArticle() {
-        if (articleSelector != null) {
-            setArticle(articleSelector.getCurrentSelection());
-        }
-    }
-
     public void setArticle(Article article){
-
         if (txtTitleDetail != null && txtNewsSiteDetail != null && txtPublishedDetail != null && txtUpdatedDetail != null && txtSummaryDetail != null && txtPublishedDetail != null && txtUpdatedDetail != null) {
             txtTitleDetail.setText(article.Title);
             txtNewsSiteDetail.setText(article.NewsSite);

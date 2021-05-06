@@ -11,10 +11,8 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -23,9 +21,7 @@ import dk.au.mad21spring.spacenewsapplication.Activities.ArticleSelectorInterfac
 import dk.au.mad21spring.spacenewsapplication.Database.Article;
 import dk.au.mad21spring.spacenewsapplication.NewsAdapter;
 import dk.au.mad21spring.spacenewsapplication.R;
-import dk.au.mad21spring.spacenewsapplication.ViewModels.ArticleViewModel;
-import dk.au.mad21spring.spacenewsapplication.ViewModels.MainViewModel;
-import dk.au.mad21spring.spacenewsapplication.ViewModels.ReadLaterViewModel;
+import dk.au.mad21spring.spacenewsapplication.ViewModels.ListViewModel;
 
 public class ArticleListFragment extends Fragment implements NewsAdapter.INewsItemClickedListener {
 
@@ -33,14 +29,15 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.INewsIt
     private NewsAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private Button btnSaved;
-    private ReadLaterViewModel vm;
+    private ListViewModel vm;
+    private String fragmentType;
 
     private ArrayList<Article> articles; // her skal vi nok have noget live data i stedet
 
     private ArticleSelectorInterface articleSelector;
 
-    public ArticleListFragment() {
-        // required empty public constructor??
+    public ArticleListFragment(String fragmentType) {
+        this.fragmentType = fragmentType;
     }
 
 
@@ -48,15 +45,17 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.INewsIt
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_article_list, container, false);
-
         recyclerView = view.findViewById(R.id.recyclerView);
-
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        vm = new ViewModelProvider(this).get(ListViewModel.class);
+        vm.updateNewsFeed(); // vi forstår ikke hvorfor både denne metode og getArticles skal kaldes
+        articles = vm.getArticles(fragmentType);
 
         adapter = new NewsAdapter(this, getActivity(), articles);
 
@@ -68,8 +67,6 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.INewsIt
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
-
-        // view model...
     }
 
     @Override
@@ -83,16 +80,11 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.INewsIt
         }
     }
 
-    public void setArticles(ArrayList<Article> articles){
-        this.articles = articles;
-    }
-
     @Override
     public void onArticleClicked(int index) {
-        // opdater view model...
-
         if (articleSelector != null){
-            articleSelector.onArticleSelected(index);
+            Article selectedArticle = articles.get(index);
+            articleSelector.onArticleSelected(selectedArticle);
         }
     }
 }

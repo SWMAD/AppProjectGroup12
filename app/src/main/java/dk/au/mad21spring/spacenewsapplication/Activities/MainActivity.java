@@ -2,31 +2,23 @@ package dk.au.mad21spring.spacenewsapplication.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 import dk.au.mad21spring.spacenewsapplication.Database.Article;
-import dk.au.mad21spring.spacenewsapplication.Database.Repository;
 import dk.au.mad21spring.spacenewsapplication.Fragments.ArticleDetailsFragment;
 import dk.au.mad21spring.spacenewsapplication.Fragments.ArticleListFragment;
-import dk.au.mad21spring.spacenewsapplication.NewsAdapter;
 import dk.au.mad21spring.spacenewsapplication.R;
 import dk.au.mad21spring.spacenewsapplication.Services.ForegroundService;
-import dk.au.mad21spring.spacenewsapplication.ViewModels.MainViewModel;
 
 public class MainActivity extends AppCompatActivity implements ArticleSelectorInterface {
 
@@ -60,11 +52,6 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
     //bottomNavigationBar
     private BottomNavigationView bottomNav;
 
-    private MainViewModel vm;
-
-    private ArrayList<Article> articles;
-    private ArrayList<Article> savedArticles;
-
     private int selectedArticlePosition;
 
     ForegroundService foregroundService;
@@ -72,11 +59,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        vm = new ViewModelProvider(this).get(MainViewModel.class);
-        vm.updateNewsFeed();
-
-        getSupportActionBar().hide(); // hide title bar https://www.javatpoint.com/android-hide-title-bar-example
+        Objects.requireNonNull(getSupportActionBar()).hide(); // hide title bar https://www.javatpoint.com/android-hide-title-bar-example
         setContentView(R.layout.activity_multipane_main);
 
         // get container views
@@ -88,13 +71,6 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         foregroundService = new ForegroundService();
-
-        //vm.deleteAllArticles();
-        articles = new ArrayList<Article>();
-        savedArticles = new ArrayList<Article>();
-
-        loadArticles();
-        loadSavedArticle();
 
         // determine orientation
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -112,17 +88,9 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
             previousUserMode = UserMode.LIST_VIEW;
 
             // initialize fragments
-            articleListFragment = new ArticleListFragment();
+            articleListFragment = new ArticleListFragment(LIST_FRAG);
             articleDetailsFragment = new ArticleDetailsFragment();
-            articleSavedFragment = new ArticleListFragment();
-
-            // set articles in fragments
-            articleListFragment.setArticles(articles);
-            if (articles.size() != 0){
-                articleDetailsFragment.setArticle(articles.get(selectedArticlePosition));
-            }
-
-            articleSavedFragment.setArticles(savedArticles);
+            articleSavedFragment = new ArticleListFragment(SAVED_LIST_FRAG);
 
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.details_container, articleDetailsFragment, DETAILS_FRAG)
@@ -145,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
             // check if FragmentManager already holds instance of Fragments, else create them
             articleListFragment = (ArticleListFragment) getSupportFragmentManager().findFragmentByTag(LIST_FRAG);
             if (articleListFragment == null) {
-                articleListFragment = new ArticleListFragment();
+                articleListFragment = new ArticleListFragment(LIST_FRAG);
             }
             articleDetailsFragment = (ArticleDetailsFragment) getSupportFragmentManager().findFragmentByTag(DETAILS_FRAG);
             if (articleDetailsFragment == null) {
@@ -153,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
             }
             articleSavedFragment = (ArticleListFragment) getSupportFragmentManager().findFragmentByTag(SAVED_LIST_FRAG);
             if (articleSavedFragment == null) {
-                articleSavedFragment = new ArticleListFragment();
+                articleSavedFragment = new ArticleListFragment(SAVED_LIST_FRAG);
             }
         }
 
@@ -210,7 +178,6 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
                 }
             }
         }
-
     }
 
     @Override
@@ -227,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
         switchFragment(targetMode);
     }
 
-    private boolean switchFragment(UserMode targetMode) { // hvorfor returnerer den en bool?
+    private void switchFragment(UserMode targetMode) {
         if (phoneMode == PhoneMode.PORTRAIT) {
             if (targetMode == UserMode.LIST_VIEW) {
                 listContainer.setVisibility(View.VISIBLE);
@@ -236,7 +203,6 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
             } else if (targetMode == UserMode.DETAIL_VIEW) {
                 listContainer.setVisibility(View.GONE);
                 detailsContainer.setVisibility(View.VISIBLE);
-                //changeListContainerFragment(targetMode);
             } else if (targetMode == UserMode.SAVED_VIEW) {
                 listContainer.setVisibility(View.VISIBLE);
                 detailsContainer.setVisibility(View.GONE);
@@ -247,21 +213,18 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
                 changeListContainerFragment(targetMode);
             }
         }
-        return true;
     }
 
     private void changeListContainerFragment(UserMode targetMode) {
         switch (targetMode) {
             case LIST_VIEW:
                 getSupportFragmentManager().beginTransaction()
-                        //.setCustomAnimations(R.anim.enter_fragment_slide, R.anim.exit_fragment_slide) // skal vi have animationer?
                         .replace(R.id.list_container, articleListFragment, LIST_FRAG)
                         .commit();
                 break;
 
             case SAVED_VIEW:
                 getSupportFragmentManager().beginTransaction()
-                        //.setCustomAnimations(R.anim.enter_fragment_slide, R.anim.exit_fragment_slide)
                         .addToBackStack(null)
                         .replace(R.id.list_container, articleSavedFragment, SAVED_LIST_FRAG)
                         .commit();
@@ -270,54 +233,11 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
     }
 
     @Override
-    public void onArticleSelected(int position) {
-        Article selectedArticle = new Article();
-
-        if (articleDetailsFragment != null) {
-            if (userMode == UserMode.LIST_VIEW) {
-                selectedArticle = articles.get(position);
-            }
-            else if (userMode == UserMode.SAVED_VIEW) {
-                selectedArticle = savedArticles.get(position);
-            }
-
-            if (selectedArticle != null) {
-                selectedArticlePosition = position;
-                articleDetailsFragment.setArticle(selectedArticle);
-            }
+    public void onArticleSelected(Article article) {
+        if (article != null) {
+            articleDetailsFragment.setArticle(article);
         }
         updateFragmentViewState(UserMode.DETAIL_VIEW);
-    }
-
-    @Override
-    public ArrayList<Article> getArticleList() {
-        return articles; // skal også returnere savedArticles afhængig af konteksten
-    }
-
-    @Override
-    public Article getCurrentSelection() {
-        if (articles != null) {
-            return articles.get(selectedArticlePosition);
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    public void viewSaved() {
-        if (userMode != UserMode.SAVED_VIEW) { // checks if the user mode is not already the saved mode
-            updateFragmentViewState(UserMode.SAVED_VIEW);
-        } else {
-            updateFragmentViewState(UserMode.LIST_VIEW);
-        }
-    }
-
-    private void loadArticles() {
-        articles = vm.getAllArticlesFromAPI();
-    }
-
-    private void loadSavedArticle() {
-        savedArticles = vm.getAllSavedArticles();
     }
 
     @Override

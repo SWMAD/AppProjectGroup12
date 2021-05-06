@@ -5,19 +5,27 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
+import java.util.ArrayList;
+
 import dk.au.mad21spring.spacenewsapplication.Database.Article;
 import dk.au.mad21spring.spacenewsapplication.Database.Repository;
 
-public class ArticleViewModel extends AndroidViewModel {
+public class ListViewModel extends AndroidViewModel {
 
     private Repository repository;
 
-    public ArticleViewModel(@NonNull Application application) {
+    public ListViewModel(@NonNull Application application) {
         super(application);
         repository = Repository.getInstance(application);
     }
 
-    public boolean isArticleSaved(Article article) {return repository.cityExists(article);}
-    public void addArticleToReadLater(Article article) {repository.addArticleAsynch(article);}
-    public void deleteArticle(Article article) {repository.deleteArticleAsynch(article);}
+    public void deleteAllArticles() {
+        repository.deleteAllArticles();
+    }
+    public void updateNewsFeed() {
+        repository.sendRequestAllArticles();
+    }
+    public ArrayList<Article> getArticles(String fragmentType) {
+        return repository.getArticles(fragmentType);
+    }
 }
