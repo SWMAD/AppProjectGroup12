@@ -173,7 +173,6 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
                         case R.id.nav_saved:
                             updateFragmentViewState(UserMode.SAVED_VIEW);
                             break;
-
                     }
                     return true; //wants to select the clicked item
                 }
@@ -189,12 +188,9 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
         stopService(foregroundServiceIntent);
     }
 
-    // Fragments...
-    // denne metode er ikke helt rigtig endnu
+
     @Override
     public void onBackPressed() {
-
-        // hvad skal der ske når man trykker tilbage
         if (phoneMode == phoneMode.LANDSCAPE) {
             if (userMode == UserMode.SAVED_VIEW) {
                 updateFragmentViewState(UserMode.LIST_VIEW);
@@ -206,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
                 finish();
             } else if (userMode == UserMode.SAVED_VIEW) {
                 updateFragmentViewState(UserMode.LIST_VIEW);
-            } else if (userMode == UserMode.DETAIL_VIEW) { // hvad hvis brugeren var i saved view lige før de var i detail view, så skal de tilbage dertil...
+            } else if (userMode == UserMode.DETAIL_VIEW) {
                 if (previousUserMode == UserMode.LIST_VIEW) {
                     updateFragmentViewState(UserMode.LIST_VIEW);
                 } else if (previousUserMode == UserMode.SAVED_VIEW) {
@@ -231,7 +227,6 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
         switchFragment(targetMode);
     }
 
-    // denne metode er ikke rigtig endnu
     private boolean switchFragment(UserMode targetMode) { // hvorfor returnerer den en bool?
         if (phoneMode == PhoneMode.PORTRAIT) {
             if (targetMode == UserMode.LIST_VIEW) {
@@ -248,15 +243,9 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
                 changeListContainerFragment(targetMode);
             }
         } else {
-            // har ikke kigget på dette endnu
-            /*
-            if(targetMode == UserMode.LIST_VIEW){
-                changeListContainerFragment(UserMode.DETAIL_VIEW);
-            } else {
+            if(targetMode == UserMode.LIST_VIEW || targetMode == UserMode.SAVED_VIEW){
                 changeListContainerFragment(targetMode);
             }
-
-             */
         }
         return true;
     }
@@ -265,14 +254,14 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
         switch (targetMode) {
             case LIST_VIEW:
                 getSupportFragmentManager().beginTransaction()
-                        //.setCustomAnimations(R.animator.slide_in, R.animator.slide_out) // skal vi have animationer?
+                        //.setCustomAnimations(R.anim.enter_fragment_slide, R.anim.exit_fragment_slide) // skal vi have animationer?
                         .replace(R.id.list_container, articleListFragment, LIST_FRAG)
                         .commit();
                 break;
 
             case SAVED_VIEW:
                 getSupportFragmentManager().beginTransaction()
-                        //.setCustomAnimations(R.animator.slide_in, R.animator.slide_out)
+                        //.setCustomAnimations(R.anim.enter_fragment_slide, R.anim.exit_fragment_slide)
                         .addToBackStack(null)
                         .replace(R.id.list_container, articleSavedFragment, SAVED_LIST_FRAG)
                         .commit();
