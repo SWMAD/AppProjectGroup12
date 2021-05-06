@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
@@ -80,13 +81,12 @@ public class ArticleDetailsFragment extends Fragment {
 
         updateArticle();
 
-//        Virker ikke helt
-//        if (vm.isArticleSaved(chosenArticle) == false){
-//            btnSaveForLater.setText(R.string.btnSaveForLater);
-//        }
-//        else {
-//            btnSaveForLater.setText(R.string.RemoveFromReadLater);
-//        }
+        if (vm.isArticleSaved(chosenArticle) == false){
+            btnSaveForLater.setText(R.string.btnSaveForLater);
+        }
+        else {
+            btnSaveForLater.setText(R.string.RemoveFromReadLater);
+        }
 
         return view;
     }

@@ -90,28 +90,6 @@ public class Repository {
 
     // ########################## API methods ##########################
 
-//    public void sendRequestOneArticle(String url){
-//        if(queue==null){
-//            queue = Volley.newRequestQueue(app.getApplicationContext());
-//        }
-//
-//        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        Log.d(TAG, "API accessed successfully! " + response);
-//                        parseJsonOneArticle(response);
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.e(TAG, "Error occured while trying to access API!", error);
-//            }
-//        });
-//
-//        queue.add(stringRequest);
-//    }
-
     public void sendRequestAllArticles(){
         String url = "https://spaceflightnewsapi.net/api/v2/articles";
 
@@ -135,16 +113,6 @@ public class Repository {
 
         queue.add(stringRequest);
     }
-
-//    private void parseJsonOneArticle(String json){
-//        Gson gson = new GsonBuilder().create();
-//        ArticleDTO articleFromAPI =  gson.fromJson(json, ArticleDTO.class);
-//
-//        if(articleFromAPI!=null){
-//            Log.d(TAG, "parseJson: Title: " + articleFromAPI.getTitle() + ", news site: " + articleFromAPI.getNewsSite());
-//            addArticleAsynch(new Article("", articleFromAPI.getTitle(), articleFromAPI.getUrl(), articleFromAPI.getImageUrl(), articleFromAPI.getNewsSite(),articleFromAPI.getSummary(), articleFromAPI.getPublishedAt(), articleFromAPI.getUpdatedAt()));
-//        }
-//    }
 
     private void parseJsonAllArticles(String json){
         if (apiArticlesList != null) {

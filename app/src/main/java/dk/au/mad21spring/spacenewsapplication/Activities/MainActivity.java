@@ -72,6 +72,10 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        vm = new ViewModelProvider(this).get(MainViewModel.class);
+        vm.updateNewsFeed();
+
         getSupportActionBar().hide(); // hide title bar https://www.javatpoint.com/android-hide-title-bar-example
         setContentView(R.layout.activity_multipane_main);
 
@@ -84,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         foregroundService = new ForegroundService();
-        vm = new ViewModelProvider(this).get(MainViewModel.class);
 
         //vm.deleteAllArticles();
         articles = new ArrayList<Article>();
@@ -118,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
             if (articles.size() != 0){
                 articleDetailsFragment.setArticle(articles.get(selectedArticlePosition));
             }
+
             articleSavedFragment.setArticles(savedArticles);
 
             getSupportFragmentManager().beginTransaction()
@@ -278,8 +282,15 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
 
     @Override
     public void onArticleSelected(int position) {
+        Article selectedArticle = new Article();
+
         if (articleDetailsFragment != null) {
-            Article selectedArticle = articles.get(position);
+            if (userMode == UserMode.LIST_VIEW) {
+                selectedArticle = articles.get(position);
+            }
+            else if (userMode == UserMode.SAVED_VIEW) {
+                selectedArticle = savedArticles.get(position);
+            }
 
             if (selectedArticle != null) {
                 selectedArticlePosition = position;
@@ -313,7 +324,6 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
     }
 
     private void loadArticles() {
-        vm.updateNewsFeed();
         articles = vm.getAllArticlesFromAPI();
     }
 
