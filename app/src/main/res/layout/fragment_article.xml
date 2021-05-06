@@ -1,33 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/txtSpaceNewsDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/inAppName"
-        android:textSize="30sp"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/txtNewsSiteLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
         android:text="@string/txtNewsSide"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imViewDetail"
         app:layout_constraintTop_toBottomOf="@+id/imViewDetail" />
 
     <TextView
@@ -43,33 +32,27 @@
 
     <ImageView
         android:id="@+id/imViewDetail"
-        android:layout_width="337dp"
-        android:layout_height="149dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/txtTitleDetail"
+        app:layout_constraintStart_toStartOf="@+id/txtTitleDetail"
         app:layout_constraintTop_toBottomOf="@+id/txtTitleDetail"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/txtTitleDetail"
-        android:layout_width="338dp"
-        android:layout_height="93dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSpaceNewsDetail"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Space Development Agency to add more laser links to satellites if the price is right" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -108,30 +91,20 @@
         android:id="@+id/txtSummaryDetail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/txtSummaryLabel"
         app:layout_constraintTop_toBottomOf="@+id/txtSummaryLabel"
         tools:text="Throughout the southern Martian hemisphere’s spring and summer seasons, a large, expansive cloud emerges daily from the volcano Arsia Mons.  Why this cloud only forms at this location on Mars, what kind of cloud it is, and other puzzles to this phenomenon have plagued researchers for years — as observing Martian weather usually only happens by accident during other investigations." />
-
-    <TextView
-        android:id="@+id/txtSummaryLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/txtSummaryDetail"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/txtPublishedLabel"
-        app:layout_constraintTop_toBottomOf="@+id/txtPublishedLabel" />
 
     <Button
         android:id="@+id/btnReadArticle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/btnReadArticle"
         app:backgroundTint="#68BAB2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -141,7 +114,9 @@
     <Button
         android:id="@+id/btnSaveForLater"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/btnSaveForLater"
         app:backgroundTint="#68BAB2"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -150,37 +125,46 @@
         app:layout_constraintTop_toBottomOf="@+id/btnReadArticle" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imViewSaveIcon"
         android:layout_width="37dp"
         android:layout_height="36dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSaveForLater"
         app:layout_constraintEnd_toStartOf="@+id/btnSaveForLater"
         app:layout_constraintTop_toTopOf="@+id/btnSaveForLater"
         app:srcCompat="@android:drawable/ic_menu_save" />
 
     <TextView
+        android:id="@+id/txtSummaryLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/txtSummaryDetail"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/txtUpdatedLabel"
+        app:layout_constraintTop_toBottomOf="@+id/txtUpdatedLabel" />
+
+    <TextView
         android:id="@+id/txtUpdatedLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
         android:text="@string/txtUpdatedDetail"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/txtPublishedDetail"
-        app:layout_constraintTop_toTopOf="@+id/txtPublishedDetail" />
+        app:layout_constraintStart_toStartOf="@+id/txtPublishedLabel"
+        app:layout_constraintTop_toBottomOf="@+id/txtPublishedLabel" />
 
     <TextView
         android:id="@+id/txtUpdatedDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/txtUpdatedLabel"
+        app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toTopOf="@+id/txtUpdatedLabel"
         tools:text="22-04-2021" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

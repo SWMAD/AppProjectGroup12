@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SpaceNewsApplication</string>
     <string name="title_activity_read_later">ReadLaterActivity</string>
-    <string name="txtSavedForLaterHeader">SAVED FOR LATER</string>
+    <string name="txtSavedForLaterHeader">SAVED ARTICLES</string>
     <string name="txtNewsSide">News site:</string>
     <string name="txtPublishedDetail">Published:</string>
     <string name="txtSummaryDetail">Summary:</string>
