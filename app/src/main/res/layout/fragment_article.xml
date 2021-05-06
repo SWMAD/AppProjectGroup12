@@ -67,8 +67,10 @@
         android:id="@+id/txtNewsSiteDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/txtPublishedDetail"
+        app:layout_constraintStart_toEndOf="@+id/txtNewsSiteLabel"
         app:layout_constraintTop_toTopOf="@+id/txtNewsSiteLabel"
         tools:text="Spaceflight Now" />
 

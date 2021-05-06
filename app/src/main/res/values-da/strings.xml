@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="txtSavedForLaterHeader">Gemte artikler</string>
+    <string name="txtNewsSide">Nyheds side:</string>
+    <string name="txtPublishedDetail">publiseret:</string>
+    <string name="txtSummaryDetail">Resume:</string>
+    <string name="txtUpdatedDetail">Updateret:</string>
+    <string name="btnReadArticle">Læs artikel</string>
+    <string name="btnSaveForLater">Gem til senere</string>
+    <string name="inAppName">SPACE NEWS</string>
+    <string name="Home_nav">Hjem</string>
+    <string name="Saved_nav">Gemt</string>
+    <string name="RemoveFromReadLater">Slet artikler fra "Gemt"</string>
+</resources>
