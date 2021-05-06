@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide(); // hide title bar https://www.javatpoint.com/android-hide-title-bar-example
         setContentView(R.layout.activity_multipane_main);
 
         // get container views
