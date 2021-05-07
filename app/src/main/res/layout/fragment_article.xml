@@ -127,17 +127,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnReadArticle" />
 
-    <ImageView
-        android:id="@+id/imViewSaveIcon"
-        android:layout_width="37dp"
-        android:layout_height="36dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btnSaveForLater"
-        app:layout_constraintEnd_toStartOf="@+id/btnSaveForLater"
-        app:layout_constraintTop_toTopOf="@+id/btnSaveForLater"
-        app:srcCompat="@android:drawable/ic_menu_save" />
-
     <TextView
         android:id="@+id/txtSummaryLabel"
         android:layout_width="wrap_content"

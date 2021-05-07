@@ -78,13 +78,7 @@ public class ArticleDetailsFragment extends Fragment {
             }
         });
 
-        setArticle(chosenArticle);
-        if (vm.isArticleSaved(chosenArticle) == false){
-            btnSaveForLater.setText(R.string.btnSaveForLater);
-        }
-        else {
-            btnSaveForLater.setText(R.string.RemoveFromReadLater);
-        }
+        //setArticle(chosenArticle);
 
         return view;
     }
@@ -101,6 +95,14 @@ public class ArticleDetailsFragment extends Fragment {
     }
 
     public void setArticle(Article article){
+
+        if (vm.isArticleSaved(article) == false){
+            btnSaveForLater.setText(R.string.btnSaveForLater);
+        }
+        else {
+            btnSaveForLater.setText(R.string.RemoveFromReadLater);
+        }
+
         if (txtTitleDetail != null && txtNewsSiteDetail != null && txtPublishedDetail != null && txtUpdatedDetail != null && txtSummaryDetail != null && txtPublishedDetail != null && txtUpdatedDetail != null) {
             txtTitleDetail.setText(article.Title);
             txtNewsSiteDetail.setText(article.NewsSite);

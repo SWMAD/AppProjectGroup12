@@ -55,7 +55,7 @@ public class Repository {
         readLaterList = (ArrayList<Article>) db.newsDAO().getAllReadLaterArticlesNonAsync();
         apiArticlesList = new ArrayList<Article>();
 
-        // ***** Skal slettes
+        // ***** Skal slettes på et tidspunkt
         Article articleFromAPI =  new Article("608cee3997ebc0001c7d2d26", "Chinese Long March 6 rocket delivers nine small satellites to space", "https://spaceflightnow.com/2021/04/30/chinese-long-march-6-rocket-delivers-nine-small-satellites-to-space/", "https://mk0spaceflightnoa02a.kinstacdn.com/wp-content/uploads/2021/05/lm6_cluster.jpg", "Spaceflight Now", "Nine small Chinese satellites, including a technology experiment to test out ways to capture space debris, rode a Long March 6 rocket into orbit April 27 on a rideshare mission managed by China Great Wall Industry Corp., the government-owned enterprise charged with selling Chinese launch services on the commercial market.", "2021-04-30T05:59:21.000Z", "2021-05-01T05:59:21.540Z");
         apiArticlesList.add(articleFromAPI);
         // *****
@@ -72,6 +72,7 @@ public class Repository {
         if (fragmentType.equals("list_fragment")) {
             return getApiArticlesList();
         } else {
+            readLaterList = (ArrayList<Article>) db.newsDAO().getAllReadLaterArticlesNonAsync();
             return getReadLaterList();
         }
     }

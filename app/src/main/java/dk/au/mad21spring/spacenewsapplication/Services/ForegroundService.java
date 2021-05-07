@@ -37,7 +37,7 @@ public class ForegroundService extends Service {
     ExecutorService executorService;
 
     private boolean started = false;
-    private int sleepTime = 10000;
+    private int sleepTime = 30000;
 
     private Notification notification;
     private NotificationCompat.Builder notificationBuilder;
@@ -57,7 +57,7 @@ public class ForegroundService extends Service {
         super.onStartCommand(intent, flags, startId);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(SERVICE_CHANNEL, "Foreground Service", NotificationManager.IMPORTANCE_LOW);
+            NotificationChannel channel = new NotificationChannel(SERVICE_CHANNEL, "Remember, you have saved an article", NotificationManager.IMPORTANCE_LOW);
             notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(channel);
         }
@@ -65,7 +65,7 @@ public class ForegroundService extends Service {
         notificationBuilder = new NotificationCompat.Builder(this, SERVICE_CHANNEL);
 
         notification = notificationBuilder
-                .setContentTitle("Foreground service")
+                .setContentTitle("Remember, you have saved an article")
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .build();
 
@@ -100,7 +100,7 @@ public class ForegroundService extends Service {
                         public void run() {
                             Article readLaterArticle = repository.getReadLaterArticle();
                             if (readLaterArticle != null){
-                                notification = notificationBuilder.setContentText("Remember, you have saved an article: " + readLaterArticle.Title).build();
+                                notification = notificationBuilder.setContentText(readLaterArticle.Title).build();
                                 notificationManager.notify(NOTIFICATION_ID, notification);
                                 Log.e(TAG, "Remember, you have saved an article: " + readLaterArticle.Title);
                             }
