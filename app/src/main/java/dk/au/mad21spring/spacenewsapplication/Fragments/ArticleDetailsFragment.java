@@ -1,6 +1,8 @@
 package dk.au.mad21spring.spacenewsapplication.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,7 +61,7 @@ public class ArticleDetailsFragment extends Fragment {
         btnReadArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle button click
+                openBrowser(v, chosenArticle.Url);
             }
         });
         btnSaveForLater.setOnClickListener(new View.OnClickListener() {
@@ -113,5 +115,11 @@ public class ArticleDetailsFragment extends Fragment {
         }
 
         chosenArticle = article;
+    }
+
+    // Inspiration from https://www.youtube.com/watch?v=9-3OCc5g5oE&ab_channel=EAngkorTech
+    public void openBrowser(View view, String url){
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(browserIntent);
     }
 }
