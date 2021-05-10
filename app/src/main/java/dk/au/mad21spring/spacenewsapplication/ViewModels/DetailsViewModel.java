@@ -20,7 +20,7 @@ public class DetailsViewModel extends AndroidViewModel {
     public boolean isArticleSaved(Article article) {return repository.articleExists(article);}
     public void addArticleToReadLater(Article article) {repository.addArticleAsynch(article);}
     public void deleteArticle(Article article) {repository.deleteArticleAsynch(article);}
-    public Article getArticle(String fragmentType, int index) {
-        return repository.getArticle(fragmentType, index);
+    public Article getArticles(String fragmentType, int index) {
+        return repository.getArticles(fragmentType, index);
     };
 }

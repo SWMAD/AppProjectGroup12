@@ -3,6 +3,7 @@
     <string name="txtNewsSite">News site:</string>
     <string name="txtPublishedDetail">Published:</string>
     <string name="txtSummaryDetail">Summary:</string>
+    <string name="txtSavedForLaterHeader">Title:</string>
     <string name="txtUpdatedDetail">Updated:</string>
     <string name="btnReadArticle">Read Article</string>
     <string name="btnSaveForLater">Save for later</string>

@@ -11,11 +11,14 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import dk.au.mad21spring.spacenewsapplication.Activities.ArticleSelectorInterface;
 import dk.au.mad21spring.spacenewsapplication.Database.Article;
@@ -32,7 +35,7 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.INewsIt
     private ListViewModel vm;
     private String fragmentType;
 
-    private ArrayList<Article> articles; // her skal vi nok have noget live data i stedet
+    private ArrayList<Article> articles;
 
     private ArticleSelectorInterface articleSelector;
 
@@ -62,10 +65,23 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.INewsIt
         }
 
         vm = new ViewModelProvider(this).get(ListViewModel.class);
-        vm.updateNewsFeed(); // vi forstår ikke hvorfor både denne metode og getArticles skal kaldes
-        articles = vm.getArticles(fragmentType);
+        vm.getArticles(fragmentType).observe(getViewLifecycleOwner(), new Observer<List<Article>>() {
+            @Override
+            public void onChanged(List<Article> list) {
+                ArrayList<Article> tempList = new ArrayList<>();
+                for (Article item : list){
+                    tempList.add(item);
+                }
+                adapter.updateNewsAdapter(tempList);
+                articles = tempList;
+            }
+        });
 
-        adapter = new NewsAdapter(this, getActivity(), articles);
+        if (articles == null || articles.size() == 0){
+
+        }
+        vm.updateNewsFeed();
+        adapter = new NewsAdapter(this, getActivity());
 
         if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             layoutManager = new GridLayoutManager(getContext(), 2);

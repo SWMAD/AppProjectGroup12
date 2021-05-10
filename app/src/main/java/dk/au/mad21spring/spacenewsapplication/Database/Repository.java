@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -37,9 +38,8 @@ public class Repository {
     private Application app;
     private int index = 0;
 
-    //private LiveData<List<Article>> readLaterList;
-    private ArrayList<Article> readLaterList;
-    private ArrayList<Article> apiArticlesList;
+    private LiveData<List<Article>> readLaterList;
+    private MutableLiveData<List<Article>> apiArticlesList;
 
     public static Repository getInstance(Application app) {
         if (repository == null) {
@@ -52,46 +52,52 @@ public class Repository {
         db = NewsDatabase.getDatabase(app.getApplicationContext());
         executor = Executors.newSingleThreadExecutor();
         this.app = app;
-        readLaterList = (ArrayList<Article>) db.newsDAO().getAllReadLaterArticlesNonAsync();
-        apiArticlesList = new ArrayList<Article>();
+        readLaterList = db.newsDAO().getAllReadLaterArticles();
+        apiArticlesList = new MutableLiveData<List<Article>>() {};
 
-        // ***** Skal slettes på et tidspunkt
-        Article articleFromAPI =  new Article("608cee3997ebc0001c7d2d26", "Chinese Long March 6 rocket delivers nine small satellites to space", "https://spaceflightnow.com/2021/04/30/chinese-long-march-6-rocket-delivers-nine-small-satellites-to-space/", "https://mk0spaceflightnoa02a.kinstacdn.com/wp-content/uploads/2021/05/lm6_cluster.jpg", "Spaceflight Now", "Nine small Chinese satellites, including a technology experiment to test out ways to capture space debris, rode a Long March 6 rocket into orbit April 27 on a rideshare mission managed by China Great Wall Industry Corp., the government-owned enterprise charged with selling Chinese launch services on the commercial market.", "2021-04-30T05:59:21.000Z", "2021-05-01T05:59:21.540Z");
-        apiArticlesList.add(articleFromAPI);
-        // *****
-
-        sendRequestAllArticles();
+        if (apiArticlesList == null){
+            workaround();
+            sendRequestAllArticles();
+        }
     }
 
-    //public LiveData<List<Article>> getReadLaterList() {return readLaterList;}
-    public ArrayList<Article> getReadLaterList() {return readLaterList;}
-    public ArrayList<Article> getApiArticlesList() {return apiArticlesList;}
+    public LiveData<List<Article>> getReadLaterList() {return readLaterList;}
+    public LiveData<List<Article>> getApiArticlesList() {return apiArticlesList;}
+
+    private void workaround(){
+        ArrayList<Article> tempList = new ArrayList<>();
+        tempList.add(new Article("608cee3997ebc0001c7d2d26", "Chinese Long March 6 rocket delivers nine small satellites to space", "https://spaceflightnow.com/2021/04/30/chinese-long-march-6-rocket-delivers-nine-small-satellites-to-space/", "https://mk0spaceflightnoa02a.kinstacdn.com/wp-content/uploads/2021/05/lm6_cluster.jpg", "Spaceflight Now", "Nine small Chinese satellites, including a technology experiment to test out ways to capture space debris, rode a Long March 6 rocket into orbit April 27 on a rideshare mission managed by China Great Wall Industry Corp., the government-owned enterprise charged with selling Chinese launch services on the commercial market.", "2021-04-30T05:59:21.000Z", "2021-05-01T05:59:21.540Z"));
+        apiArticlesList.setValue(tempList);
+    }
 
     // return either all articles or saved articles depending on which fragment needs it
-    public ArrayList<Article> getArticles(String fragmentType) {
+    public LiveData<List<Article>> getArticles(String fragmentType) {
         if (fragmentType.equals("list_fragment")) {
             return getApiArticlesList();
         } else {
-            readLaterList = (ArrayList<Article>) db.newsDAO().getAllReadLaterArticlesNonAsync();
             return getReadLaterList();
         }
     }
 
     // return article based on which list it should be taken from and the index
-    public Article getArticle(String fragmentType, int index) {
+    public Article getArticles(String fragmentType, int index) {
+
+        workaround();
+        sendRequestAllArticles();
+
         if (fragmentType.equals("list_fragment")) {
-            return apiArticlesList.get(index);
+            return apiArticlesList.getValue().get(index);
         } else {
-            return readLaterList.get(index);
+            return readLaterList.getValue().get(index);
         }
     }
 
     public Article getReadLaterArticle(){
 
-        int maxIndex = readLaterList.size();
+        int maxIndex = readLaterList.getValue().size();
 
         if(maxIndex != 0){
-            Article article = readLaterList.get(index);
+            Article article = readLaterList.getValue().get(index);
 
             if (index == maxIndex-1){
                 index = 0;
@@ -134,8 +140,11 @@ public class Repository {
     }
 
     private void parseJsonAllArticles(String json){
+
+        ArrayList<Article> tempList = new ArrayList<Article>();
+
         if (apiArticlesList != null) {
-            apiArticlesList.clear();
+            apiArticlesList.getValue().clear();
         }
 
         try {
@@ -152,11 +161,14 @@ public class Repository {
 
                 Article articleFromAPI =  new Article(articleID, title, url, imageUrl, newsSite, summary, publishedAt, updatededAt);
                 Log.d(TAG, "parseJson: Title: " + articleFromAPI.Title + ", news site: " + articleFromAPI.NewsSite);
-                apiArticlesList.add(articleFromAPI);
+                tempList.add(articleFromAPI);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        apiArticlesList.setValue(tempList);
+        tempList.clear();
     }
 
     // ########################## Asynch methods ##########################

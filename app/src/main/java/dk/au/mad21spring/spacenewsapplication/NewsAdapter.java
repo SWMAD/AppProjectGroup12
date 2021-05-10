@@ -27,7 +27,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     private List<Article> articleList;
     Context context;
 
-    public NewsAdapter(INewsItemClickedListener listener, Context context, ArrayList<Article> articleList) {
+    public NewsAdapter(INewsItemClickedListener listener, Context context) {
         this.listener = listener;
         this.context = context;
         this.articleList = new ArrayList<>();

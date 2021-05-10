@@ -20,9 +20,6 @@ public interface NewsDAO {
     @Query("SELECT * FROM Article")
     LiveData<List<Article>> getAllReadLaterArticles();
 
-    @Query("SELECT * FROM Article")
-    List<Article> getAllReadLaterArticlesNonAsync();
-
     @Query("DELETE FROM Article")
     void deleteAll();
 

@@ -44,7 +44,7 @@ public class ArticleDetailsFragment extends Fragment {
 
         chosenArticle = new Article();
         vm = new ViewModelProvider(this).get(DetailsViewModel.class);
-        chosenArticle = vm.getArticle("list_fragment", 0); // default value
+        chosenArticle = vm.getArticles("list_fragment", 0); // default value
 
         // inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_article, container, false);
