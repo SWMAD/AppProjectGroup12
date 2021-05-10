@@ -70,8 +70,10 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.INewsIt
         if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             layoutManager = new GridLayoutManager(getContext(), 2);
         } else {
-            layoutManager = new GridLayoutManager(getContext(), 1);
+            layoutManager = new GridLayoutManager(getContext(), 2);
         }
+
+
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);

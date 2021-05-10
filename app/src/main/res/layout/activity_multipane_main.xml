@@ -46,11 +46,14 @@
 
     <TextView
         android:id="@+id/txtSpaceNews"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#68BAB2"
         android:text="@string/inAppName"
-        android:textSize="30sp"
+        app:autoSizeMaxTextSize="40dp"
+        app:autoSizeMinTextSize="30dp"
+        app:autoSizeTextType="uniform"
+        android:gravity="center"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

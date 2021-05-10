@@ -3,160 +3,197 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipToPadding="true">
 
-    <TextView
-        android:id="@+id/txtNewsSiteLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/txtNewsSite"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/imViewDetail"
-        app:layout_constraintTop_toBottomOf="@+id/imViewDetail" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txtPublishedLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/txtPublishedDetail"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/txtNewsSiteLabel"
-        app:layout_constraintTop_toBottomOf="@+id/txtNewsSiteLabel" />
+        <TextView
+            android:id="@+id/txtNewsSiteLabel"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/txtNewsSite"
+            android:textStyle="bold"
+            app:autoSizeMaxTextSize="25dp"
+            app:autoSizeMinTextSize="14dp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintStart_toStartOf="@+id/imViewDetail"
+            app:layout_constraintTop_toBottomOf="@+id/imViewDetail" />
 
-    <ImageView
-        android:id="@+id/imViewDetail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/txtTitleDetail"
-        app:layout_constraintStart_toStartOf="@+id/txtTitleDetail"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitleDetail"
-        tools:srcCompat="@tools:sample/avatars" />
+        <TextView
+            android:id="@+id/txtPublishedLabel"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/txtPublishedDetail"
+            android:textStyle="bold"
+            app:autoSizeMaxTextSize="25dp"
+            app:autoSizeMinTextSize="14dp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintStart_toStartOf="@+id/txtNewsSiteLabel"
+            app:layout_constraintTop_toBottomOf="@+id/txtNewsSiteLabel" />
 
-    <TextView
-        android:id="@+id/txtTitleDetail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:gravity="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Space Development Agency to add more laser links to satellites if the price is right" />
+        <ImageView
+            android:id="@+id/imViewDetail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/txtTitleDetail"
+            app:layout_constraintStart_toStartOf="@+id/txtTitleDetail"
+            app:layout_constraintTop_toBottomOf="@+id/txtTitleDetail"
+            tools:srcCompat="@tools:sample/avatars" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="48dp" />
+        <TextView
+            android:id="@+id/txtTitleDetail"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            app:autoSizeMaxTextSize="30dp"
+            app:autoSizeMinTextSize="24dp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Space Development Agency to add more laser links to satellites if the price is right" />
 
-    <TextView
-        android:id="@+id/txtNewsSiteDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/txtNewsSiteLabel"
-        app:layout_constraintTop_toTopOf="@+id/txtNewsSiteLabel"
-        tools:text="Spaceflight Now" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="48dp" />
 
-    <TextView
-        android:id="@+id/txtPublishedDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="@+id/txtPublishedLabel"
-        tools:text="15-03-2021" />
+        <TextView
+            android:id="@+id/txtNewsSiteDetail"
+            android:layout_width="200dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            app:autoSizeMaxTextSize="25dp"
+            app:autoSizeMinTextSize="14dp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintStart_toEndOf="@+id/txtNewsSiteLabel"
+            app:layout_constraintTop_toTopOf="@+id/txtNewsSiteLabel"
+            tools:text="Spaceflight Now" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="102dp" />
+        <TextView
+            android:id="@+id/txtPublishedDetail"
+            android:layout_width="200dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            app:autoSizeMaxTextSize="25dp"
+            app:autoSizeMinTextSize="14dp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintStart_toEndOf="@+id/txtPublishedLabel"
+            app:layout_constraintTop_toTopOf="@+id/txtPublishedLabel"
+            tools:text="15-03-2021" />
 
-    <TextView
-        android:id="@+id/txtSummaryDetail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/txtSummaryLabel"
-        app:layout_constraintTop_toBottomOf="@+id/txtSummaryLabel"
-        tools:text="Throughout the southern Martian hemisphere’s spring and summer seasons, a large, expansive cloud emerges daily from the volcano Arsia Mons.  Why this cloud only forms at this location on Mars, what kind of cloud it is, and other puzzles to this phenomenon have plagued researchers for years — as observing Martian weather usually only happens by accident during other investigations." />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
 
-    <Button
-        android:id="@+id/btnReadArticle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/btnReadArticle"
-        app:backgroundTint="#68BAB2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSummaryDetail" />
+        <TextView
+            android:id="@+id/txtSummaryDetail"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            app:autoSizeMaxTextSize="20dp"
+            app:autoSizeMinTextSize="14dp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtSummaryLabel"
+            app:layout_constraintTop_toBottomOf="@+id/txtSummaryLabel"
+            tools:text="Throughout the southern Martian hemisphere’s spring and summer seasons, a large, expansive cloud emerges daily from the volcano Arsia Mons.  Why this cloud only forms at this location on Mars, what kind of cloud it is, and other puzzles to this phenomenon have plagued researchers for years — as observing Martian weather usually only happens by accident during other investigations." />
 
-    <Button
-        android:id="@+id/btnSaveForLater"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/btnSaveForLater"
-        app:backgroundTint="#68BAB2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnReadArticle" />
+        <Button
+            android:id="@+id/btnReadArticle"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            android:text="@string/btnReadArticle"
+            app:autoSizeMaxTextSize="25dp"
+            app:autoSizeMinTextSize="14dp"
+            app:autoSizeTextType="uniform"
+            app:backgroundTint="#68BAB2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtSummaryDetail" />
 
-    <TextView
-        android:id="@+id/txtSummaryLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/txtSummaryDetail"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/txtUpdatedLabel"
-        app:layout_constraintTop_toBottomOf="@+id/txtUpdatedLabel" />
+        <Button
+            android:id="@+id/btnSaveForLater"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/btnSaveForLater"
+            app:autoSizeMaxTextSize="25dp"
+            app:autoSizeMinTextSize="14dp"
+            app:autoSizeTextType="uniform"
+            app:backgroundTint="#68BAB2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnReadArticle" />
 
-    <TextView
-        android:id="@+id/txtUpdatedLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/txtUpdatedDetail"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/txtPublishedLabel"
-        app:layout_constraintTop_toBottomOf="@+id/txtPublishedLabel" />
+        <TextView
+            android:id="@+id/txtSummaryLabel"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/txtSummaryDetail"
+            android:textStyle="bold"
+            app:autoSizeMaxTextSize="25dp"
+            app:autoSizeMinTextSize="14dp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintStart_toStartOf="@+id/txtUpdatedLabel"
+            app:layout_constraintTop_toBottomOf="@+id/txtUpdatedLabel" />
 
-    <TextView
-        android:id="@+id/txtUpdatedDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="@+id/txtUpdatedLabel"
-        tools:text="22-04-2021" />
+        <TextView
+            android:id="@+id/txtUpdatedLabel"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/txtUpdatedDetail"
+            android:textStyle="bold"
+            app:autoSizeMaxTextSize="25dp"
+            app:autoSizeMinTextSize="14dp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintStart_toStartOf="@+id/txtPublishedLabel"
+            app:layout_constraintTop_toBottomOf="@+id/txtPublishedLabel" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/txtUpdatedDetail"
+            android:layout_width="200dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            app:autoSizeMaxTextSize="25dp"
+            app:autoSizeMinTextSize="14dp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintStart_toEndOf="@+id/txtUpdatedLabel"
+            app:layout_constraintTop_toTopOf="@+id/txtUpdatedLabel"
+            tools:text="22-04-2021" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
