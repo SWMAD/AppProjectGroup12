@@ -36,6 +36,10 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.INewsIt
 
     private ArticleSelectorInterface articleSelector;
 
+    public ArticleListFragment() {
+
+    }
+
     public ArticleListFragment(String fragmentType) {
         this.fragmentType = fragmentType;
     }
@@ -53,6 +57,10 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.INewsIt
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        if (savedInstanceState != null) {
+            fragmentType = savedInstanceState.getString("fragmentType");
+        }
+
         vm = new ViewModelProvider(this).get(ListViewModel.class);
         vm.updateNewsFeed(); // vi forstår ikke hvorfor både denne metode og getArticles skal kaldes
         articles = vm.getArticles(fragmentType);
@@ -67,6 +75,12 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.INewsIt
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString("fragmentType", fragmentType);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
