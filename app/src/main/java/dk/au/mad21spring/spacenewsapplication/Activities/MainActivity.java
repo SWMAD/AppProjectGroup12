@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
     }
 
     // method to Bottom navigation bar
+    // inspired by: https://www.section.io/engineering-education/bottom-navigation-bar-in-android/
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
