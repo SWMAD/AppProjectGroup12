@@ -33,6 +33,9 @@ import dk.au.mad21spring.spacenewsapplication.Constants;
 
 public class Repository {
 
+    // Code regarding database inspired by code demo from class: "roomdemo 1.1"
+    // Code regarding api inspired by code demo from class: "RickandMortyGallery 1.8"
+
     private static final String TAG = "TAG";
     public static Repository repository;
     private NewsDatabase db;
