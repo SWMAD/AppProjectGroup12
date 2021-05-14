@@ -49,6 +49,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:gravity="center"
+        android:maxLines="2"
         android:textStyle="italic"
         app:autoSizeMaxTextSize="25dp"
         app:autoSizeMinTextSize="16dp"

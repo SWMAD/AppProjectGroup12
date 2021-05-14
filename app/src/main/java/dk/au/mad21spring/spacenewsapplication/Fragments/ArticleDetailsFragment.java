@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.bumptech.glide.Glide;
 
 import dk.au.mad21spring.spacenewsapplication.Activities.ArticleSelectorInterface;
+import dk.au.mad21spring.spacenewsapplication.Constants;
 import dk.au.mad21spring.spacenewsapplication.Database.Article;
 import dk.au.mad21spring.spacenewsapplication.R;
 import dk.au.mad21spring.spacenewsapplication.ViewModels.DetailsViewModel;
@@ -34,17 +35,22 @@ public class ArticleDetailsFragment extends Fragment {
 
     private ArticleSelectorInterface articleSelector;
 
+    // required empty public constructor
     public ArticleDetailsFragment() {
-        // required empty public constructor
+
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
 
         chosenArticle = new Article();
         vm = new ViewModelProvider(this).get(DetailsViewModel.class);
-        chosenArticle = vm.getArticles("list_fragment", 0); // default value
+
+        // first article shown as default
+        chosenArticle = vm.getArticle(Constants.LIST_FRAG, 0);
+
 
         // inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_article, container, false);
@@ -58,29 +64,35 @@ public class ArticleDetailsFragment extends Fragment {
         imViewDetail = view.findViewById(R.id.imViewDetail);
         btnReadArticle = view.findViewById(R.id.btnReadArticle);
         btnSaveForLater = view.findViewById(R.id.btnSaveForLater);
+
+
         btnReadArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openBrowser(v, chosenArticle.Url);
             }
         });
+
         btnSaveForLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (vm.isArticleSaved(chosenArticle) == false){
                     vm.addArticleToReadLater(chosenArticle);
-                    Toast.makeText(getContext(), "Article is saved for later", Toast.LENGTH_SHORT).show(); // resource externalization
+
+                    Toast.makeText(getContext(), getResources().getText(R.string.Toast_SavedForLater),
+                            Toast.LENGTH_SHORT).show();
                     btnSaveForLater.setText(R.string.RemoveFromReadLater);
                 }
                 else {
                     vm.deleteArticle(chosenArticle);
-                    Toast.makeText(getContext(), "Article is removed from read later list", Toast.LENGTH_SHORT).show(); // resource externalization
+                    Toast.makeText(getContext(), getResources().getText(R.string.Toast_RemovedFromReadlater),
+                            Toast.LENGTH_SHORT).show();
                     btnSaveForLater.setText(R.string.btnSaveForLater);
                 }
             }
         });
 
-        //setArticle(chosenArticle);
+        setArticle(chosenArticle);
 
         return view;
     }
@@ -111,7 +123,7 @@ public class ArticleDetailsFragment extends Fragment {
             txtPublishedDetail.setText(article.PublishedAt);
             txtUpdatedDetail.setText(article.UpdatededAt);
             txtSummaryDetail.setText(article.Summary);
-            Glide.with(imViewDetail.getContext()).load(article.ImageUrl).into(imViewDetail); // skal vi have et default billede?
+            Glide.with(imViewDetail.getContext()).load(article.ImageUrl).into(imViewDetail);
         }
 
         chosenArticle = article;
@@ -121,5 +133,10 @@ public class ArticleDetailsFragment extends Fragment {
     public void openBrowser(View view, String url){
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(browserIntent);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 }

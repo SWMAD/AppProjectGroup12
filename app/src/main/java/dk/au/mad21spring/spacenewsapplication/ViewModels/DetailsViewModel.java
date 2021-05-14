@@ -4,6 +4,9 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+
+import java.util.List;
 
 import dk.au.mad21spring.spacenewsapplication.Database.Article;
 import dk.au.mad21spring.spacenewsapplication.Database.Repository;
@@ -20,7 +23,7 @@ public class DetailsViewModel extends AndroidViewModel {
     public boolean isArticleSaved(Article article) {return repository.articleExists(article);}
     public void addArticleToReadLater(Article article) {repository.addArticleAsynch(article);}
     public void deleteArticle(Article article) {repository.deleteArticleAsynch(article);}
-    public Article getArticles(String fragmentType, int index) {
-        return repository.getArticles(fragmentType, index);
+    public Article getArticle(String fragmentType, int index) {
+        return repository.getArticle(fragmentType, index);
     };
 }

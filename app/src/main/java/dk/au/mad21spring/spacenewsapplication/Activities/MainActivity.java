@@ -17,26 +17,23 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.List;
 import java.util.Objects;
 
+import dk.au.mad21spring.spacenewsapplication.Constants;
 import dk.au.mad21spring.spacenewsapplication.Database.Article;
 import dk.au.mad21spring.spacenewsapplication.Fragments.ArticleDetailsFragment;
 import dk.au.mad21spring.spacenewsapplication.Fragments.ArticleListFragment;
 import dk.au.mad21spring.spacenewsapplication.R;
 import dk.au.mad21spring.spacenewsapplication.Services.ForegroundService;
 
+// Code regarding fragments inspired by code demo from lecture 7
 public class MainActivity extends AppCompatActivity implements ArticleSelectorInterface {
 
-    // keeping track of phone mode and user mode
-    public enum PhoneMode {PORTRAIT, LANDSCAPE}
-    public enum UserMode {LIST_VIEW, DETAIL_VIEW, SAVED_VIEW}
-
+    // keeping track of phone mode, user mode and selected article
+    private enum PhoneMode {PORTRAIT, LANDSCAPE}
+    private enum UserMode {LIST_VIEW, DETAIL_VIEW, SAVED_VIEW}
     private PhoneMode phoneMode;
     private UserMode userMode;
     private UserMode previousUserMode;
-
-    // tags so we can find our fragments later
-    private static final String LIST_FRAG = "list_fragment";
-    private static final String SAVED_LIST_FRAG = "saved_list_fragment";
-    private static final String DETAILS_FRAG = "details_fragment";
+    private int selectedArticlePosition;
 
     // tags to savedStateInstance
     private static final String ARTICLE_POSITION = "article_position";
@@ -52,17 +49,17 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
     private LinearLayout listContainer;
     private LinearLayout detailsContainer;
 
-    //bottomNavigationBar
+    // bottom navigation bar
     private BottomNavigationView bottomNav;
-
-    private int selectedArticlePosition;
 
     ForegroundService foregroundService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Objects.requireNonNull(getSupportActionBar()).hide(); // hide title bar https://www.javatpoint.com/android-hide-title-bar-example
+
+        // hide title bar. Inspired by https://www.javatpoint.com/android-hide-title-bar-example
+        Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.activity_multipane_main);
 
         // get container views
@@ -91,14 +88,14 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
             previousUserMode = UserMode.LIST_VIEW;
 
             // initialize fragments
-            articleListFragment = new ArticleListFragment(LIST_FRAG);
+            articleListFragment = new ArticleListFragment(Constants.LIST_FRAG);
             articleDetailsFragment = new ArticleDetailsFragment();
-            articleSavedFragment = new ArticleListFragment(SAVED_LIST_FRAG);
+            articleSavedFragment = new ArticleListFragment(Constants.SAVED_LIST_FRAG);
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.details_container, articleDetailsFragment, DETAILS_FRAG)
-                    .add(R.id.list_container, articleSavedFragment, SAVED_LIST_FRAG)
-                    .replace(R.id.list_container, articleListFragment, LIST_FRAG)
+                    .add(R.id.details_container, articleDetailsFragment, Constants.DETAILS_FRAG)
+                    .add(R.id.list_container, articleSavedFragment, Constants.SAVED_LIST_FRAG)
+                    .replace(R.id.list_container, articleListFragment, Constants.LIST_FRAG)
                     .commit();
         } else {
             // got restarted with persisted state, probably due to orientation change
@@ -114,17 +111,17 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
             }
 
             // check if FragmentManager already holds instance of Fragments, else create them
-            articleListFragment = (ArticleListFragment) getSupportFragmentManager().findFragmentByTag(LIST_FRAG);
+            articleListFragment = (ArticleListFragment) getSupportFragmentManager().findFragmentByTag(Constants.LIST_FRAG);
             if (articleListFragment == null) {
-                articleListFragment = new ArticleListFragment(LIST_FRAG);
+                articleListFragment = new ArticleListFragment(Constants.LIST_FRAG);
             }
-            articleDetailsFragment = (ArticleDetailsFragment) getSupportFragmentManager().findFragmentByTag(DETAILS_FRAG);
+            articleDetailsFragment = (ArticleDetailsFragment) getSupportFragmentManager().findFragmentByTag(Constants.DETAILS_FRAG);
             if (articleDetailsFragment == null) {
                 articleDetailsFragment = new ArticleDetailsFragment();
             }
-            articleSavedFragment = (ArticleListFragment) getSupportFragmentManager().findFragmentByTag(SAVED_LIST_FRAG);
+            articleSavedFragment = (ArticleListFragment) getSupportFragmentManager().findFragmentByTag(Constants.SAVED_LIST_FRAG);
             if (articleSavedFragment == null) {
-                articleSavedFragment = new ArticleListFragment(SAVED_LIST_FRAG);
+                articleSavedFragment = new ArticleListFragment(Constants.SAVED_LIST_FRAG);
             }
         }
 
@@ -223,14 +220,14 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
         switch (targetMode) {
             case LIST_VIEW:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.list_container, articleListFragment, LIST_FRAG)
+                        .replace(R.id.list_container, articleListFragment, Constants.LIST_FRAG)
                         .commit();
                 break;
 
             case SAVED_VIEW:
                 getSupportFragmentManager().beginTransaction()
                         .addToBackStack(null)
-                        .replace(R.id.list_container, articleSavedFragment, SAVED_LIST_FRAG)
+                        .replace(R.id.list_container, articleSavedFragment, Constants.SAVED_LIST_FRAG)
                         .commit();
                 break;
         }

@@ -3,10 +3,13 @@
     <string name="txtNewsSite">Nyhedsside:</string>
     <string name="txtPublishedDetail">Publiceret:</string>
     <string name="txtSummaryDetail">Resume:</string>
+    <string name="txtSavedForLaterHeader">Titel:</string>
     <string name="txtUpdatedDetail">Updateret:</string>
     <string name="btnReadArticle">Læs artikel</string>
     <string name="btnSaveForLater">Gem til senere</string>
     <string name="Home_nav">Hjem</string>
     <string name="Saved_nav">Gemte</string>
     <string name="RemoveFromReadLater">Slet fra Gemte</string>
+    <string name="Toast_SavedForLater">Artiklen er gemt til senere</string>
+    <string name="Toast_RemovedFromReadlater"> "Artiklen er fjernet fra gemte artikler"</string>
 </resources>
