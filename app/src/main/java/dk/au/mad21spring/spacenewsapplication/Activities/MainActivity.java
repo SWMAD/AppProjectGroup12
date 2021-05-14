@@ -2,8 +2,6 @@ package dk.au.mad21spring.spacenewsapplication.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -14,7 +12,6 @@ import android.widget.LinearLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.List;
 import java.util.Objects;
 
 import dk.au.mad21spring.spacenewsapplication.Constants;
@@ -33,10 +30,8 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
     private PhoneMode phoneMode;
     private UserMode userMode;
     private UserMode previousUserMode;
-    private int selectedArticlePosition;
 
-    // tags to savedStateInstance
-    private static final String ARTICLE_POSITION = "article_position";
+    // tags for the savedStateInstance
     private static final String USER_MODE = "user_mode";
     private static final String PREVIOUS_USER_MODE = "previous_user_mode";
 
@@ -52,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
     // bottom navigation bar
     private BottomNavigationView bottomNav;
 
+    // foreground service
     ForegroundService foregroundService;
 
     @Override
@@ -79,11 +75,9 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
             phoneMode = PhoneMode.LANDSCAPE;
         }
 
-        // our saved state so we are gonna remember which movie we picked
         if (savedInstanceState == null) {
 
-            // no persisted state, start the app in list view mode and selected index = 0
-            selectedArticlePosition = 0;
+            // no persisted state, start the app in list view mode
             userMode = UserMode.LIST_VIEW;
             previousUserMode = UserMode.LIST_VIEW;
 
@@ -98,8 +92,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
                     .replace(R.id.list_container, articleListFragment, Constants.LIST_FRAG)
                     .commit();
         } else {
-            // got restarted with persisted state, probably due to orientation change
-            selectedArticlePosition = savedInstanceState.getInt(ARTICLE_POSITION);
+            // if app is e.g. rotated, restart with persisted state
             userMode = (UserMode) savedInstanceState.getSerializable(USER_MODE);
             previousUserMode = (UserMode) savedInstanceState.getSerializable(PREVIOUS_USER_MODE);
 
@@ -107,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
                 userMode = UserMode.LIST_VIEW;  //default value if none saved
             }
             if (previousUserMode == null) {
-                previousUserMode = UserMode.LIST_VIEW;
+                previousUserMode = UserMode.LIST_VIEW; //default value if none saved
             }
 
             // check if FragmentManager already holds instance of Fragments, else create them
@@ -143,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
                             updateFragmentViewState(UserMode.SAVED_VIEW);
                             break;
                     }
-                    return true; //wants to select the clicked item
+                    return true;
                 }
             };
 
@@ -157,16 +150,11 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
         stopService(foregroundServiceIntent);
     }
 
-
+    // when the user presses the back button, the app view should either be updated or the app
+    // should be shut down
     @Override
     public void onBackPressed() {
-        if (phoneMode == phoneMode.LANDSCAPE) {
-            if (userMode == UserMode.SAVED_VIEW) {
-                updateFragmentViewState(UserMode.LIST_VIEW);
-            } else {
-                finish();
-            }
-        } else {
+        if (phoneMode == phoneMode.PORTRAIT) {
             if (userMode == UserMode.LIST_VIEW) {
                 finish();
             } else if (userMode == UserMode.SAVED_VIEW) {
@@ -178,36 +166,32 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
                     updateFragmentViewState(UserMode.SAVED_VIEW);
                 }
             }
+        } else {
+            if (userMode == UserMode.SAVED_VIEW) {
+                updateFragmentViewState(UserMode.LIST_VIEW);
+            } else {
+                finish();
+            }
         }
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putInt(ARTICLE_POSITION, selectedArticlePosition);
-        outState.putSerializable(USER_MODE, userMode);
-        outState.putSerializable(PREVIOUS_USER_MODE, previousUserMode);
-        super.onSaveInstanceState(outState);
-    }
-
+    // update the user mode
     private void updateFragmentViewState(UserMode targetMode) {
         previousUserMode = userMode;
         userMode = targetMode;
         switchFragment(targetMode);
     }
 
+    // switch which fragment is visible
     private void switchFragment(UserMode targetMode) {
         if (phoneMode == PhoneMode.PORTRAIT) {
-            if (targetMode == UserMode.LIST_VIEW) {
+            if (targetMode == UserMode.LIST_VIEW || targetMode == UserMode.SAVED_VIEW) {
                 listContainer.setVisibility(View.VISIBLE);
                 detailsContainer.setVisibility(View.GONE);
                 changeListContainerFragment(targetMode);
             } else if (targetMode == UserMode.DETAIL_VIEW) {
                 listContainer.setVisibility(View.GONE);
                 detailsContainer.setVisibility(View.VISIBLE);
-            } else if (targetMode == UserMode.SAVED_VIEW) {
-                listContainer.setVisibility(View.VISIBLE);
-                detailsContainer.setVisibility(View.GONE);
-                changeListContainerFragment(targetMode);
             }
         } else {
             if(targetMode == UserMode.LIST_VIEW || targetMode == UserMode.SAVED_VIEW){
@@ -216,6 +200,7 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
         }
     }
 
+    // replace container fragment with new fragment
     private void changeListContainerFragment(UserMode targetMode) {
         switch (targetMode) {
             case LIST_VIEW:
@@ -233,12 +218,21 @@ public class MainActivity extends AppCompatActivity implements ArticleSelectorIn
         }
     }
 
+    // when an article is selected in the list view, set the new article in the detailes view
+    // and update the fragment view state
     @Override
     public void onArticleSelected(Article article) {
         if (article != null) {
             articleDetailsFragment.setArticle(article);
         }
         updateFragmentViewState(UserMode.DETAIL_VIEW);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(USER_MODE, userMode);
+        outState.putSerializable(PREVIOUS_USER_MODE, previousUserMode);
+        super.onSaveInstanceState(outState);
     }
 
     @Override

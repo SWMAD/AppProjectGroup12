@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import dk.au.mad21spring.spacenewsapplication.Database.Article;
@@ -21,9 +20,6 @@ public class ListViewModel extends AndroidViewModel {
         repository = Repository.getInstance(application);
     }
 
-    public void deleteAllArticles() {
-        repository.deleteAllArticles();
-    }
     public void updateNewsFeed() {
         repository.sendRequestAllArticles();
     }

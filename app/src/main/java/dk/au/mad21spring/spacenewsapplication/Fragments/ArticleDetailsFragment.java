@@ -1,6 +1,5 @@
 package dk.au.mad21spring.spacenewsapplication.Fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,13 +26,19 @@ import dk.au.mad21spring.spacenewsapplication.ViewModels.DetailsViewModel;
 
 public class ArticleDetailsFragment extends Fragment {
 
+    // tag for the savedStateInstance
+    private static final String CHOSEN_ARTICLE = "chosenArticle";
+
+    // ui elements
     private TextView txtTitleDetail, txtNewsSiteDetail, txtPublishedDetail, txtUpdatedDetail, txtSummaryDetail;
     private Button btnReadArticle, btnSaveForLater;
     private ImageView imViewDetail;
-    private DetailsViewModel vm;
-    private Article chosenArticle;
 
-    private ArticleSelectorInterface articleSelector;
+    // view model
+    private DetailsViewModel vm;
+
+    // article to be shown
+    private Article chosenArticle;
 
     // required empty public constructor
     public ArticleDetailsFragment() {
@@ -46,15 +51,17 @@ public class ArticleDetailsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         chosenArticle = new Article();
+
         vm = new ViewModelProvider(this).get(DetailsViewModel.class);
 
+        // if the app is restarted for example due to rotation, the previous article should be
+        // shown after restart. otherwise the article by default is set to the first article in the
+        // list with all the articles
         if (savedInstanceState != null) {
-            chosenArticle = savedInstanceState.getParcelable("chosenArticle");
+            chosenArticle = savedInstanceState.getParcelable(CHOSEN_ARTICLE);
         } else {
-        // first article shown as default
-        chosenArticle = vm.getArticle(Constants.LIST_FRAG, 0);
+            chosenArticle = vm.getArticle(Constants.LIST_FRAG, 0);
         }
-
 
         // inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_article, container, false);
@@ -68,7 +75,6 @@ public class ArticleDetailsFragment extends Fragment {
         imViewDetail = view.findViewById(R.id.imViewDetail);
         btnReadArticle = view.findViewById(R.id.btnReadArticle);
         btnSaveForLater = view.findViewById(R.id.btnSaveForLater);
-
 
         btnReadArticle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,17 +108,7 @@ public class ArticleDetailsFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onAttach(@NonNull Context activity) {
-        super.onAttach(activity);
-
-        try {
-            articleSelector = (ArticleSelectorInterface) activity;
-        } catch (ClassCastException ex) {
-            throw new ClassCastException(activity.toString() + " must implement ArticleSelectorInterface");
-        }
-    }
-
+    // set ui widgets with the article properties
     public void setArticle(Article article){
 
         if (vm.isArticleSaved(article) == false){
@@ -132,19 +128,18 @@ public class ArticleDetailsFragment extends Fragment {
         }
 
         chosenArticle = article;
-
-
     }
 
+    // method for opening browser when 'Read article' button is clicked
     // Inspiration from https://www.youtube.com/watch?v=9-3OCc5g5oE&ab_channel=EAngkorTech
-    public void openBrowser(View view, String url){
+    private void openBrowser(View view, String url){
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(browserIntent);
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putParcelable("chosenArticle", chosenArticle);
+        outState.putParcelable(CHOSEN_ARTICLE, chosenArticle);
         super.onSaveInstanceState(outState);
     }
 }

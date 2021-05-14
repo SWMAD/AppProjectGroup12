@@ -28,20 +28,24 @@ import dk.au.mad21spring.spacenewsapplication.ViewModels.ListViewModel;
 
 public class ArticleListFragment extends Fragment implements NewsAdapter.INewsItemClickedListener {
 
-    private static final String FRAGMENT_TYPE = "fragmentType"; // skal den i constants?
+    // constant
+    private static final String FRAGMENT_TYPE = "fragmentType";
+
+    // recycler view
     private RecyclerView recyclerView;
     private NewsAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private Button btnSaved;
+
+    // view model
     private ListViewModel vm;
+
+    // determines if the fragment is for the view with all articles or only saved articles
     private String fragmentType;
 
     private ArrayList<Article> articles;
-
     private ArticleSelectorInterface articleSelector;
 
-    private Article selectedArticle;
-
+    // required empty public constructor
     public ArticleListFragment() {
 
     }
@@ -82,18 +86,11 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.INewsIt
             }
         });
 
-        //if (articles == null || articles.size() == 0){
-//
-        //}
         vm.updateNewsFeed();
         adapter = new NewsAdapter(this, getActivity());
 
-        // vi behøver ikke denne ifsætning, når spanCount bare er det samme
-        if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            layoutManager = new GridLayoutManager(getContext(), 2);
-        } else {
-            layoutManager = new GridLayoutManager(getContext(), 2);
-        }
+        // set grid column span
+        layoutManager = new GridLayoutManager(getContext(), 2);
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
@@ -109,6 +106,7 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.INewsIt
     public void onAttach(@NonNull Context activity) {
         super.onAttach(activity);
 
+        // making sure that the proper interface is implemented
         try {
             articleSelector = (ArticleSelectorInterface) activity;
         } catch (ClassCastException ex) {
@@ -116,6 +114,7 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.INewsIt
         }
     }
 
+    // method for passing the chosen article to the interface
     @Override
     public void onArticleClicked(int index) {
         if (articleSelector != null){
