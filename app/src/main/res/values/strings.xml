@@ -11,4 +11,8 @@
     <string name="Home_nav">Home</string>
     <string name="Saved_nav">Saved</string>
     <string name="RemoveFromReadLater">Remove from Saved</string>
+
+    <string name="Toast_SavedForLater">Article is saved for later</string>
+    <string name="Toast_RemovedFromReadlater"> "Article is removed from saved articels"</string>
+
 </resources>
