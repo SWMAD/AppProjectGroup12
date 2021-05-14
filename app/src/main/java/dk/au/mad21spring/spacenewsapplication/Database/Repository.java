@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -94,21 +95,26 @@ public class Repository {
 
     public Article getReadLaterArticle(){
 
-        int maxIndex = readLaterList.getValue().size();
+        if (readLaterList.getValue() != null){
+            int maxIndex = readLaterList.getValue().size();
 
-        if(maxIndex != 0){
-            Article article = readLaterList.getValue().get(index);
+            if(maxIndex != 0){
+                Article article = readLaterList.getValue().get(index);
 
-            if (index == maxIndex-1){
-                index = 0;
+                if (index == maxIndex-1){
+                    index = 0;
+                }
+                else{
+                    index++;
+                }
+
+                return article;
             }
             else{
-                index++;
+                return null;
             }
-
-            return article;
         }
-        else{
+        else {
             return null;
         }
     }
@@ -116,7 +122,7 @@ public class Repository {
     // ########################## API methods ##########################
 
     public void sendRequestAllArticles(){
-        String url = "https://spaceflightnewsapi.net/api/v2/articles";
+        String url = "https://spaceflightnewsapi.net/api/v2/articles?_limit=100";
 
         if(queue==null){
             queue = Volley.newRequestQueue(app.getApplicationContext());

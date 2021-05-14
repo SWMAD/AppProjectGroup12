@@ -37,7 +37,7 @@ public class ForegroundService extends Service {
     ExecutorService executorService;
 
     private boolean started = false;
-    private int sleepTime = 30000;
+    private int sleepTime = 10000;
 
     private Notification notification;
     private NotificationCompat.Builder notificationBuilder;
@@ -65,7 +65,7 @@ public class ForegroundService extends Service {
         notificationBuilder = new NotificationCompat.Builder(this, SERVICE_CHANNEL);
 
         notification = notificationBuilder
-                .setContentTitle("Remember, you have saved an article")
+                .setContentTitle("")
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .build();
 
@@ -105,7 +105,7 @@ public class ForegroundService extends Service {
                                 Log.e(TAG, "Remember, you have saved an article: " + readLaterArticle.Title);
                             }
                             else{
-                                // Vil give notifikationer, hvis ikke man har nogle read-later-artikler?
+                                // Vil vi give notifikationer, hvis ikke man har nogle read-later-artikler?
                             }
                         }
                     });
