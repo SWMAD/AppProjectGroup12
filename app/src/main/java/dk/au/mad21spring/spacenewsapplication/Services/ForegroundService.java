@@ -29,6 +29,7 @@ import static java.sql.Types.NULL;
 
 public class ForegroundService extends Service {
 
+    // Code regarding foreground service is inspired by code demo from class: " DemoServices"
     private static final String TAG="ForegroundService";
     public static final String SERVICE_CHANNEL = "serviceChannel";
     public static final int NOTIFICATION_ID = 55;
