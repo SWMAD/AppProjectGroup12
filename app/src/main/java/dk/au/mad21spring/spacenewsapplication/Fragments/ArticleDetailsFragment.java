@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.bumptech.glide.Glide;
 
 import dk.au.mad21spring.spacenewsapplication.Activities.ArticleSelectorInterface;
+import dk.au.mad21spring.spacenewsapplication.Constants;
 import dk.au.mad21spring.spacenewsapplication.Database.Article;
 import dk.au.mad21spring.spacenewsapplication.R;
 import dk.au.mad21spring.spacenewsapplication.ViewModels.DetailsViewModel;
@@ -46,7 +47,10 @@ public class ArticleDetailsFragment extends Fragment {
 
         chosenArticle = new Article();
         vm = new ViewModelProvider(this).get(DetailsViewModel.class);
-        chosenArticle = vm.getArticles("list_fragment", 0); // default value
+
+        // first article shown as default
+        chosenArticle = vm.getArticle(Constants.LIST_FRAG, 0);
+
 
         // inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_article, container, false);
@@ -88,7 +92,7 @@ public class ArticleDetailsFragment extends Fragment {
             }
         });
 
-        //setArticle(chosenArticle);
+        setArticle(chosenArticle);
 
         return view;
     }
@@ -119,7 +123,7 @@ public class ArticleDetailsFragment extends Fragment {
             txtPublishedDetail.setText(article.PublishedAt);
             txtUpdatedDetail.setText(article.UpdatededAt);
             txtSummaryDetail.setText(article.Summary);
-            Glide.with(imViewDetail.getContext()).load(article.ImageUrl).into(imViewDetail); // skal vi have et default billede?
+            Glide.with(imViewDetail.getContext()).load(article.ImageUrl).into(imViewDetail);
         }
 
         chosenArticle = article;
@@ -129,5 +133,10 @@ public class ArticleDetailsFragment extends Fragment {
     public void openBrowser(View view, String url){
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(browserIntent);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 }

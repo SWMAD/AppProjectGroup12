@@ -29,6 +29,8 @@ import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import dk.au.mad21spring.spacenewsapplication.Constants;
+
 public class Repository {
 
     private static final String TAG = "TAG";
@@ -73,7 +75,7 @@ public class Repository {
 
     // return either all articles or saved articles depending on which fragment needs it
     public LiveData<List<Article>> getArticles(String fragmentType) {
-        if (fragmentType.equals("list_fragment")) {
+        if (fragmentType.equals(Constants.LIST_FRAG)) {
             return getApiArticlesList();
         } else {
             return getReadLaterList();
@@ -81,12 +83,12 @@ public class Repository {
     }
 
     // return article based on which list it should be taken from and the index
-    public Article getArticles(String fragmentType, int index) {
+    public Article getArticle(String fragmentType, int index) {
 
         workaround();
         sendRequestAllArticles();
 
-        if (fragmentType.equals("list_fragment")) {
+        if (fragmentType.equals(Constants.LIST_FRAG)) {
             return apiArticlesList.getValue().get(index);
         } else {
             return readLaterList.getValue().get(index);

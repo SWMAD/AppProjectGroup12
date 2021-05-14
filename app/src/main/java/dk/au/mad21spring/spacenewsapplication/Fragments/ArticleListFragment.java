@@ -28,6 +28,7 @@ import dk.au.mad21spring.spacenewsapplication.ViewModels.ListViewModel;
 
 public class ArticleListFragment extends Fragment implements NewsAdapter.INewsItemClickedListener {
 
+    private static final String FRAGMENT_TYPE = "fragmentType"; // skal den i constants?
     private RecyclerView recyclerView;
     private NewsAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -38,6 +39,8 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.INewsIt
     private ArrayList<Article> articles;
 
     private ArticleSelectorInterface articleSelector;
+
+    private Article selectedArticle;
 
     public ArticleListFragment() {
 
@@ -60,8 +63,10 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.INewsIt
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        articles = new ArrayList<>();
+
         if (savedInstanceState != null) {
-            fragmentType = savedInstanceState.getString("fragmentType");
+            fragmentType = savedInstanceState.getString(FRAGMENT_TYPE);
         }
 
         vm = new ViewModelProvider(this).get(ListViewModel.class);
@@ -77,19 +82,18 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.INewsIt
             }
         });
 
-        if (articles == null || articles.size() == 0){
-
-        }
+        //if (articles == null || articles.size() == 0){
+//
+        //}
         vm.updateNewsFeed();
         adapter = new NewsAdapter(this, getActivity());
 
+        // vi behøver ikke denne ifsætning, når spanCount bare er det samme
         if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             layoutManager = new GridLayoutManager(getContext(), 2);
         } else {
             layoutManager = new GridLayoutManager(getContext(), 2);
         }
-
-
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
@@ -97,7 +101,7 @@ public class ArticleListFragment extends Fragment implements NewsAdapter.INewsIt
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putString("fragmentType", fragmentType);
+        outState.putString(FRAGMENT_TYPE, fragmentType);
         super.onSaveInstanceState(outState);
     }
 
