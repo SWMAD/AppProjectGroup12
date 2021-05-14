@@ -1,5 +1,8 @@
 package dk.au.mad21spring.spacenewsapplication.Database;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -9,7 +12,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 @Entity
-public class Article {
+public class Article implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     public int Id;
@@ -39,5 +42,46 @@ public class Article {
         this.UpdatededAt = updatedAt;
     }
 
-    // Get set methods
+    //source of inspiration for parcelable: https://www.youtube.com/watch?v=WBbsvqSu0is&ab_channel=CodinginFlow
+    protected Article(Parcel in) {
+        Id = in.readInt();
+        ArticleID = in.readString();
+        Title = in.readString();
+        Url = in.readString();
+        ImageUrl = in.readString();
+        NewsSite = in.readString();
+        Summary = in.readString();
+        PublishedAt = in.readString();
+        UpdatededAt = in.readString();
+    }
+
+    public static final Creator<Article> CREATOR = new Creator<Article>() {
+        @Override
+        public Article createFromParcel(Parcel in) {
+            return new Article(in);
+        }
+
+        @Override
+        public Article[] newArray(int size) {
+            return new Article[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(Id);
+        dest.writeString(ArticleID);
+        dest.writeString(Title);
+        dest.writeString(Url);
+        dest.writeString(ImageUrl);
+        dest.writeString(NewsSite);
+        dest.writeString(Summary);
+        dest.writeString(PublishedAt);
+        dest.writeString(UpdatededAt);
+    }
 }

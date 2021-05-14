@@ -48,8 +48,12 @@ public class ArticleDetailsFragment extends Fragment {
         chosenArticle = new Article();
         vm = new ViewModelProvider(this).get(DetailsViewModel.class);
 
+        if (savedInstanceState != null) {
+            chosenArticle = savedInstanceState.getParcelable("chosenArticle");
+        } else {
         // first article shown as default
         chosenArticle = vm.getArticle(Constants.LIST_FRAG, 0);
+        }
 
 
         // inflate the layout for this fragment
@@ -127,6 +131,8 @@ public class ArticleDetailsFragment extends Fragment {
         }
 
         chosenArticle = article;
+
+
     }
 
     // Inspiration from https://www.youtube.com/watch?v=9-3OCc5g5oE&ab_channel=EAngkorTech
@@ -137,6 +143,7 @@ public class ArticleDetailsFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putParcelable("chosenArticle", chosenArticle);
         super.onSaveInstanceState(outState);
     }
 }
