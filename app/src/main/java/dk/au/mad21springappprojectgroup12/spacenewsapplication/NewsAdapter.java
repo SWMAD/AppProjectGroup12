@@ -1,4 +1,4 @@
-package dk.au.mad21spring.spacenewsapplication;
+package dk.au.mad21springappprojectgroup12.spacenewsapplication;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-import dk.au.mad21spring.spacenewsapplication.Database.Article;
+import dk.au.mad21springappprojectgroup12.spacenewsapplication.Database.Article;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
 
@@ -43,7 +43,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     @Override
     public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
-        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);   // Henvsining til recycler item
+        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
         NewsViewHolder vh = new NewsViewHolder(v,listener);
         return vh;
     }
@@ -66,7 +66,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     public class NewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-//        //Widgets
         ImageView imgArticle;
         TextView txtTitle, txtPublished;
 
@@ -75,11 +74,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         public NewsViewHolder(@NonNull View itemView, INewsItemClickedListener newsItemClickedListener) {
             super(itemView);
 
-            //references from layout file
             imgArticle = itemView.findViewById(R.id.imgArticle);
             txtTitle = itemView.findViewById(R.id.txtTitle);
             txtPublished = itemView.findViewById(R.id.txtPublished);
-            listener = newsItemClickedListener; //save listener interface
+            listener = newsItemClickedListener;
 
             itemView.setOnClickListener(this);
         }

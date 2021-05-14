@@ -1,4 +1,4 @@
-package dk.au.mad21spring.spacenewsapplication.Activities;
+package dk.au.mad21springappprojectgroup12.spacenewsapplication.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,12 +14,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Objects;
 
-import dk.au.mad21spring.spacenewsapplication.Constants;
-import dk.au.mad21spring.spacenewsapplication.Database.Article;
-import dk.au.mad21spring.spacenewsapplication.Fragments.ArticleDetailsFragment;
-import dk.au.mad21spring.spacenewsapplication.Fragments.ArticleListFragment;
-import dk.au.mad21spring.spacenewsapplication.R;
-import dk.au.mad21spring.spacenewsapplication.Services.ForegroundService;
+import dk.au.mad21springappprojectgroup12.spacenewsapplication.Constants;
+import dk.au.mad21springappprojectgroup12.spacenewsapplication.Database.Article;
+import dk.au.mad21springappprojectgroup12.spacenewsapplication.Fragments.ArticleDetailsFragment;
+import dk.au.mad21springappprojectgroup12.spacenewsapplication.Fragments.ArticleListFragment;
+import dk.au.mad21springappprojectgroup12.spacenewsapplication.R;
+import dk.au.mad21springappprojectgroup12.spacenewsapplication.Services.ForegroundService;
 
 // Code regarding fragments inspired by code demo from lecture 7
 public class MainActivity extends AppCompatActivity implements ArticleSelectorInterface {

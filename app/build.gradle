@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "dk.au.mad21spring.spacenewsapplication"
+        applicationId "dk.au.mad21springappprojectgroup12.spacenewsapplication"
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 1

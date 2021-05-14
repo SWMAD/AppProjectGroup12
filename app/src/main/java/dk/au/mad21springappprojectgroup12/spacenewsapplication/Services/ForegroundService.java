@@ -1,4 +1,4 @@
-package dk.au.mad21spring.spacenewsapplication.Services;
+package dk.au.mad21springappprojectgroup12.spacenewsapplication.Services;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -13,19 +13,13 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import dk.au.mad21spring.spacenewsapplication.Database.Article;
-import dk.au.mad21spring.spacenewsapplication.Database.Repository;
-import dk.au.mad21spring.spacenewsapplication.R;
-
-import static java.sql.Types.NULL;
+import dk.au.mad21springappprojectgroup12.spacenewsapplication.Database.Article;
+import dk.au.mad21springappprojectgroup12.spacenewsapplication.Database.Repository;
+import dk.au.mad21springappprojectgroup12.spacenewsapplication.R;
 
 public class ForegroundService extends Service {
 

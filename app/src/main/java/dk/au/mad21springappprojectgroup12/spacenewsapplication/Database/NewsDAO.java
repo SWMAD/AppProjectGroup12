@@ -1,11 +1,10 @@
-package dk.au.mad21spring.spacenewsapplication.Database;
+package dk.au.mad21springappprojectgroup12.spacenewsapplication.Database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Dao

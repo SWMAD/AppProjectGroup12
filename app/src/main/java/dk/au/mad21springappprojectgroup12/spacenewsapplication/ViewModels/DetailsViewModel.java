@@ -1,12 +1,12 @@
-package dk.au.mad21spring.spacenewsapplication.ViewModels;
+package dk.au.mad21springappprojectgroup12.spacenewsapplication.ViewModels;
 
 import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
-import dk.au.mad21spring.spacenewsapplication.Database.Article;
-import dk.au.mad21spring.spacenewsapplication.Database.Repository;
+import dk.au.mad21springappprojectgroup12.spacenewsapplication.Database.Article;
+import dk.au.mad21springappprojectgroup12.spacenewsapplication.Database.Repository;
 
 public class DetailsViewModel extends AndroidViewModel {
 

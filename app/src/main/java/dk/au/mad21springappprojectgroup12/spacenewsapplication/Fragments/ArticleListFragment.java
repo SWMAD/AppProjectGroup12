@@ -1,17 +1,14 @@
-package dk.au.mad21spring.spacenewsapplication.Fragments;
+package dk.au.mad21springappprojectgroup12.spacenewsapplication.Fragments;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -20,11 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import dk.au.mad21spring.spacenewsapplication.Activities.ArticleSelectorInterface;
-import dk.au.mad21spring.spacenewsapplication.Database.Article;
-import dk.au.mad21spring.spacenewsapplication.NewsAdapter;
-import dk.au.mad21spring.spacenewsapplication.R;
-import dk.au.mad21spring.spacenewsapplication.ViewModels.ListViewModel;
+import dk.au.mad21springappprojectgroup12.spacenewsapplication.Activities.ArticleSelectorInterface;
+import dk.au.mad21springappprojectgroup12.spacenewsapplication.Database.Article;
+import dk.au.mad21springappprojectgroup12.spacenewsapplication.NewsAdapter;
+import dk.au.mad21springappprojectgroup12.spacenewsapplication.R;
+import dk.au.mad21springappprojectgroup12.spacenewsapplication.ViewModels.ListViewModel;
 
 public class ArticleListFragment extends Fragment implements NewsAdapter.INewsItemClickedListener {
 

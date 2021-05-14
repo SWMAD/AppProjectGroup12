@@ -1,4 +1,4 @@
-package dk.au.mad21spring.spacenewsapplication;
+package dk.au.mad21springappprojectgroup12.spacenewsapplication;
 
 public class Constants {
     public static final String LIST_FRAG = "list_fragment";

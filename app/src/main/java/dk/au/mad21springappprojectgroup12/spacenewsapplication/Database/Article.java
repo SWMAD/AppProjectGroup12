@@ -1,15 +1,10 @@
-package dk.au.mad21spring.spacenewsapplication.Database;
+package dk.au.mad21springappprojectgroup12.spacenewsapplication.Database;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 @Entity
 public class Article implements Parcelable {

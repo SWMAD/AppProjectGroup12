@@ -1,4 +1,4 @@
-package dk.au.mad21spring.spacenewsapplication.Fragments;
+package dk.au.mad21springappprojectgroup12.spacenewsapplication.Fragments;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -18,11 +18,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 
-import dk.au.mad21spring.spacenewsapplication.Activities.ArticleSelectorInterface;
-import dk.au.mad21spring.spacenewsapplication.Constants;
-import dk.au.mad21spring.spacenewsapplication.Database.Article;
-import dk.au.mad21spring.spacenewsapplication.R;
-import dk.au.mad21spring.spacenewsapplication.ViewModels.DetailsViewModel;
+import dk.au.mad21springappprojectgroup12.spacenewsapplication.Constants;
+import dk.au.mad21springappprojectgroup12.spacenewsapplication.Database.Article;
+import dk.au.mad21springappprojectgroup12.spacenewsapplication.R;
+import dk.au.mad21springappprojectgroup12.spacenewsapplication.ViewModels.DetailsViewModel;
 
 public class ArticleDetailsFragment extends Fragment {
 

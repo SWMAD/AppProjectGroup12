@@ -1,4 +1,4 @@
-package dk.au.mad21spring.spacenewsapplication.Database;
+package dk.au.mad21springappprojectgroup12.spacenewsapplication.Database;
 
 import android.content.Context;
 
