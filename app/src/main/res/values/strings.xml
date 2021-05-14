@@ -13,5 +13,7 @@
     <string name="RemoveFromReadLater">Remove from Saved</string>
     <string name="Toast_SavedForLater">Article is saved for later</string>
     <string name="Toast_RemovedFromReadlater"> "Article is removed from saved articels"</string>
+    <string name="Service_welcome">"Welcome to Space News"</string>
+    <string name="Service_Remember">"Remember, you have saved an article"</string>
 
 </resources>

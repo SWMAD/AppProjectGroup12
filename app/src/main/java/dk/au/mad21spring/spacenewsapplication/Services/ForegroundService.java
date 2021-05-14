@@ -65,7 +65,7 @@ public class ForegroundService extends Service {
         notificationBuilder = new NotificationCompat.Builder(this, SERVICE_CHANNEL);
 
         notification = notificationBuilder
-                .setContentTitle("Welcome to Space News")
+                .setContentTitle(getResources().getText(R.string.Service_welcome))
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .build();
 
@@ -100,12 +100,12 @@ public class ForegroundService extends Service {
                         public void run() {
                             Article readLaterArticle = repository.getReadLaterArticle();
                             if (readLaterArticle != null){
-                                notification = notificationBuilder.setContentText(readLaterArticle.Title).setContentTitle("Remember, you have saved an article").build();
+                                notification = notificationBuilder.setContentText(readLaterArticle.Title).setContentTitle(getResources().getText(R.string.Service_Remember)).build();
                                 notificationManager.notify(NOTIFICATION_ID, notification);
                                 Log.e(TAG, "Remember, you have saved an article: " + readLaterArticle.Title);
                             }
                             else{
-                                // Vil vi give notifikationer, hvis ikke man har nogle read-later-artikler?
+
                             }
                         }
                     });

@@ -77,6 +77,7 @@ public class ArticleDetailsFragment extends Fragment {
             }
         });
 
+
         btnSaveForLater.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

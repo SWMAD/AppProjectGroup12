@@ -12,4 +12,6 @@
     <string name="RemoveFromReadLater">Slet fra Gemte</string>
     <string name="Toast_SavedForLater">Artiklen er gemt til senere</string>
     <string name="Toast_RemovedFromReadlater"> "Artiklen er fjernet fra gemte artikler"</string>
+    <string name="Service_welcome">"Velkommen til Space News"</string>
+    <string name="Service_Remember">"Husk at du har gemt en artikel"</string>
 </resources>
